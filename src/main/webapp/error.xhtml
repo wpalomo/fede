@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2015 jlgranda
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <body>
+        <h:form>
+            The error message is:  
+            <b>
+                #{requestScope['javax.servlet.error.message']}  
+            </b>
+            <p />
+            <h:commandButton value="Regresar" action="/index.html" /> 
+            <p /> 
+            <font color="RED">  
+                Please show the system administator the error below.  
+            </font>  
+            <p />  
+            <textarea rows="30" cols="100">  
+           <h:outputText escape="false" value="#{controller.stackTrace}"/>  
+            </textarea>  
+            <p />
+        </h:form>
+
+    </body>
+</html>

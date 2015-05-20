@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2015 jlgranda
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/WEB-INF/templates/template_plain.xhtml">
+        <ui:param name="sitename" value="#{i18n['system.name']}" />
+        <ui:param name="title" value="#{i18n['login.title']}" />
+        <ui:define name="content">
+            <div class="row" >
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">#{i18n['signin']}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form" action="j_security_check" name="j_security_check" method='POST'>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="j_username" placeholder="Correo electrónico" />							
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control"  name="j_password" placeholder="Contraseña" />
+                                    </div>
+                                    <!--                                    <div class="checkbox">
+                                                                            <label>
+                                                                                <p:selectBooleanCheckbox value="·">#{i18n['RememberMe']}</p:selectBooleanCheckbox>
+                                                                            </label>
+                                                                        </div>-->
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <input name="login" type="submit" value="#{i18n['Login']}" class="btn btn-lg btn-success btn-block"/>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="login-panel panel panel-default">
+                        <a href="signin" class="btn btn-block btn-social btn-facebook">
+                            <i class="fa fa-facebook"></i> #{i18n['SignInWithFacebook']}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+        <ui:define name="footer">
+            <p class="text-muted">#{i18n['PoweredBy']}</p>
+        </ui:define>
+    </ui:composition>
+
+</html>

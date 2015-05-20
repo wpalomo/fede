@@ -1,0 +1,82 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core" 
+        xmlns:h="http://java.sun.com/jsf/html" 
+        xmlns:ui="http://java.sun.com/jsf/facelets" 
+        xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" 
+        xmlns:p="http://primefaces.org/ui">
+
+    <html>
+
+        <h:head>
+                <title>fede&#160;&#187;&#160;dashboard</title>
+
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta http-equiv="Cache-Control" content="no-cache" />
+                <meta http-equiv="Cache-Control" content="must-revalidate" />
+                <meta http-equiv="Pragma" content="no-cache" />
+                <meta http-equiv="Expires" content="Mon, 1 Aug 1999 10:00:00 GMT" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+                <!-- Bootstrap -->
+                <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+                <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap-social/bootstrap-social.css" />
+                <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/metisMenu/dist/metisMenu.min.css" />
+                <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/dist/css/timeline.css" />
+                <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/dist/css/sb-admin-2.css" />
+                <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/morrisjs/morris.css" />
+                <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/font-awesome/css/font-awesome.min.css" />
+                <!-- Custom CSS -->
+
+                <!-- Our customizations -->
+                <h:outputStylesheet name="/css/fede.css" />
+                <!--<h:outputScript name="application.js" />-->
+
+                <ui:insert name="head"></ui:insert>
+                <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+                <!--[if lt IE 9]>
+                    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                 <![endif]-->
+        </h:head>
+        <h:body>
+            <div id="wrapper">
+                <!-- Navigation -->
+                <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    
+                    <ui:include src="./navigation.xhtml" />
+                    <!-- /.navbar-top-links -->
+
+                    <div class="navbar-default sidebar" role="navigation">
+			<!-- MENU sidebar -->
+                            <ui:include src="./sidebar.xhtml" />
+
+                    </div>
+                    <!-- /.navbar-static-side -->
+                </nav>
+
+                <div id="page-wrapper">
+                    <ui:insert name="content"></ui:insert>
+                </div>
+                <!-- /#page-wrapper -->
+
+            </div>
+            <!-- /#wrapper -->
+
+
+            <!-- Bootstrap core JavaScript
+            ================================================== -->
+                <!-- Placed at the end of the document so the pages load faster -->
+                <!---->
+                    <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/jquery/dist/jquery.min.js" />
+                    <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap/dist/js/bootstrap.min.js" />
+                    <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/metisMenu/dist/metisMenu.min.js" />
+<!--                    <h:outputScript name="bower_components/raphael/raphael-min.js" />
+                    <h:outputScript name="bower_components/morrisjs/morris.min.js" />
+                    <h:outputScript name="js/morris-data.js" />-->
+                    <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/dist/js/sb-admin-2.js" />
+                <!---->
+        </h:body>
+    </html>
+</f:view>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/home/jlgranda/NetBeansProjects/fede/src/main/resources/sri/esquemasXsdVersion%201.1.0/factura_v1.1.0.xsd" uri="src/main/resources/jaxb/sriesquemasXsdVersion110_factura_v110/factura_v1.1.0.xsd"/>
+    <system systemId="file:/home/jlgranda/NetBeansProjects/fede/src/main/resources/sri/esquemasXsdVersion1.1.0/factura_v1.1.0.xsd" uri="src/main/resources/jaxb/sri_esquemasXsdVersion110_factura_v110/factura_v1.1.0.xsd"/>
+    <system systemId="file:/home/jlgranda/NetBeansProjects/fede/src/main/resources/sri/esquemasXsdVersion1.0.0/factura_v1.0.0.xsd" uri="src/main/resources/jaxb/sri_esquemasXsdVersion100_factura_v100/factura_v1.0.0.xsd"/>
+</catalog>

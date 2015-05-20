@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.1.0">
+<infoTributaria>
+<ambiente>2</ambiente>
+<tipoEmision>1</tipoEmision>
+<razonSocial>GERARDO ORTIZ E HIJOS CIA LTDA</razonSocial>
+<nombreComercial>GERARDO ORTIZ E HIJOS CIA LTDA</nombreComercial>
+<ruc>0190072002001</ruc>
+<claveAcceso>1802201501019007200200120209030000023853687846218</claveAcceso>
+<codDoc>01</codDoc>
+<estab>020</estab>
+<ptoEmi>903</ptoEmi>
+<secuencial>000002385</secuencial>
+<dirMatriz>CARLOS JULIO AROSEMENA</dirMatriz>
+</infoTributaria>
+<infoFactura>
+<fechaEmision>18/02/2015</fechaEmision>
+<dirEstablecimiento>SYLA SEYMUR Y TOMAS DE BERLANGA</dirEstablecimiento>
+<contribuyenteEspecial>3517</contribuyenteEspecial>
+<obligadoContabilidad>SI</obligadoContabilidad>
+<tipoIdentificacionComprador>05</tipoIdentificacionComprador>
+<razonSocialComprador>JOSE LUIS GRANDA</razonSocialComprador>
+<identificacionComprador>1103826960</identificacionComprador>
+<direccionComprador>LOJA</direccionComprador>
+<totalSinImpuestos>5.12</totalSinImpuestos>
+<totalDescuento>0.33</totalDescuento>
+<totalConImpuestos>
+<totalImpuesto>
+<codigo>2</codigo>
+<codigoPorcentaje>0</codigoPorcentaje>
+<baseImponible>3.59</baseImponible>
+<valor>0.00</valor>
+</totalImpuesto>
+<totalImpuesto>
+<codigo>2</codigo>
+<codigoPorcentaje>2</codigoPorcentaje>
+<baseImponible>1.53</baseImponible>
+<valor>0.18</valor>
+</totalImpuesto>
+</totalConImpuestos>
+<propina>0.00</propina>
+<importeTotal>5.30</importeTotal>
+<moneda>DOLAR AMERICANO</moneda>
+</infoFactura>
+<detalles>
+<detalle>
+<codigoPrincipal>X8C7024</codigoPrincipal>
+<descripcion>TOCINO AHUMADO GRANEL</descripcion>
+<cantidad>0.1250</cantidad>
+<precioUnitario>12.6069</precioUnitario>
+<descuento>0.05</descuento>
+<precioTotalSinImpuesto>1.53</precioTotalSinImpuesto>
+<detallesAdicionales>
+<detAdicional nombre="Medida" valor="KILO"/>
+<detAdicional nombre="Bodega" valor="20"/>
+</detallesAdicionales>
+<impuestos>
+<impuesto>
+<codigo>2</codigo>
+<codigoPorcentaje>2</codigoPorcentaje>
+<tarifa>12.00</tarifa>
+<baseImponible>1.53</baseImponible>
+<valor>0.18</valor>
+</impuesto>
+</impuestos>
+</detalle>
+<detalle>
+<codigoPrincipal>XY40039</codigoPrincipal>
+<descripcion>LIMON SUTIL GRANEL RIO</descripcion>
+<cantidad>0.3400</cantidad>
+<precioUnitario>0.8890</precioUnitario>
+<descuento>0.05</descuento>
+<precioTotalSinImpuesto>0.26</precioTotalSinImpuesto>
+<detallesAdicionales>
+<detAdicional nombre="Medida" valor="KILO"/>
+<detAdicional nombre="Bodega" valor="20"/>
+</detallesAdicionales>
+<impuestos>
+<impuesto>
+<codigo>2</codigo>
+<codigoPorcentaje>0</codigoPorcentaje>
+<tarifa>0.00</tarifa>
+<baseImponible>0.26</baseImponible>
+<valor>0.00</valor>
+</impuesto>
+</impuestos>
+</detalle>
+<detalle>
+<codigoPrincipal>XY8V50R</codigoPrincipal>
+<descripcion>HUEVOS BIO CUBETA X8 UNIDADES</descripcion>
+<cantidad>1.0000</cantidad>
+<precioUnitario>1.1500</precioUnitario>
+<descuento>0.03</descuento>
+<precioTotalSinImpuesto>1.12</precioTotalSinImpuesto>
+<detallesAdicionales>
+<detAdicional nombre="Medida" valor="UNIDAD"/>
+<detAdicional nombre="Bodega" valor="20"/>
+</detallesAdicionales>
+<impuestos>
+<impuesto>
+<codigo>2</codigo>
+<codigoPorcentaje>0</codigoPorcentaje>
+<tarifa>0.00</tarifa>
+<baseImponible>1.12</baseImponible>
+<valor>0.00</valor>
+</impuesto>
+</impuestos>
+</detalle>
+<detalle>
+<codigoPrincipal>XYK000E</codigoPrincipal>
+<descripcion>MANZANA ROYAL GALAG KILO RIO</descripcion>
+<cantidad>0.4750</cantidad>
+<precioUnitario>2.2578</precioUnitario>
+<descuento>0.16</descuento>
+<precioTotalSinImpuesto>0.91</precioTotalSinImpuesto>
+<detallesAdicionales>
+<detAdicional nombre="Medida" valor="KILO"/>
+<detAdicional nombre="Bodega" valor="20"/>
+</detallesAdicionales>
+<impuestos>
+<impuesto>
+<codigo>2</codigo>
+<codigoPorcentaje>0</codigoPorcentaje>
+<tarifa>0.00</tarifa>
+<baseImponible>0.91</baseImponible>
+<valor>0.00</valor>
+</impuesto>
+</impuestos>
+</detalle>
+<detalle>
+<codigoPrincipal>XYK007N</codigoPrincipal>
+<descripcion>PAPITA BLANCA 450 GR "A" ANNY</descripcion>
+<cantidad>1.0000</cantidad>
+<precioUnitario>0.8840</precioUnitario>
+<descuento>0.03</descuento>
+<precioTotalSinImpuesto>0.86</precioTotalSinImpuesto>
+<detallesAdicionales>
+<detAdicional nombre="Medida" valor="UNIDAD"/>
+<detAdicional nombre="Bodega" valor="20"/>
+</detallesAdicionales>
+<impuestos>
+<impuesto>
+<codigo>2</codigo>
+<codigoPorcentaje>0</codigoPorcentaje>
+<tarifa>0.00</tarifa>
+<baseImponible>0.86</baseImponible>
+<valor>0.00</valor>
+</impuesto>
+</impuestos>
+</detalle>
+<detalle>
+<codigoPrincipal>XYQ0059</codigoPrincipal>
+<descripcion>AGUACATE KILO</descripcion>
+<cantidad>0.2500</cantidad>
+<precioUnitario>1.8200</precioUnitario>
+<descuento>0.01</descuento>
+<precioTotalSinImpuesto>0.44</precioTotalSinImpuesto>
+<detallesAdicionales>
+<detAdicional nombre="Medida" valor="KILO"/>
+<detAdicional nombre="Bodega" valor="20"/>
+</detallesAdicionales>
+<impuestos>
+<impuesto>
+<codigo>2</codigo>
+<codigoPorcentaje>0</codigoPorcentaje>
+<tarifa>0.00</tarifa>
+<baseImponible>0.44</baseImponible>
+<valor>0.00</valor>
+</impuesto>
+</impuestos>
+</detalle>
+</detalles>
+<infoAdicional>
+<campoAdicional nombre="Lugar Venta">CORAL QUITO</campoAdicional>
+<campoAdicional nombre="Codigo">9999999</campoAdicional>
+<campoAdicional nombre="Direccion">LOJA</campoAdicional>
+<campoAdicional nombre="Telefonos">072561562</campoAdicional>
+<campoAdicional nombre="Correo">JLGRANDA81@gmail.com</campoAdicional>
+<campoAdicional nombre="Pedido">196117</campoAdicional>
+</infoAdicional>
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature524252">
+<ds:SignedInfo Id="Signature-SignedInfo780703">
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+<ds:Reference URI="#Signature524252-SignedProperties481695" Id="SignedPropertiesID834570" Type="http://uri.etsi.org/01903#SignedProperties">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+<ds:DigestValue>Y1G3+pZdO8cByEiljHVXkmGyRG0=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference URI="#Certificate1368817">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+<ds:DigestValue>DZdVGqz8NkNSNmF1I+URDdwsz0w=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference URI="#comprobante" Id="Reference-ID-55720">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+<ds:DigestValue>O5+43FsUJ0cxyI8NVChIEZPkB0A=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue Id="SignatureValue481410">
+cy6kkFAeiijFpnzwkFjmgRAqc4lSzBvTVyfLPQe6eI9eqYMkmKCFAid26AYv2oeLA86zkjqI6Pm5
+7sF9MpjGTGFJDT843ogxktNR/zPV1pEMjOHrwkxd5EkvPApXn63yCDpHTiG/rrImTOlVEcql2fXu
+QoMmz9CLkeU3NHt4b4ymsYi1NR9pt1H/ZRC8DT6m1ZvP+Setv7LGK5bEgpddnju7eQ7pMH64SsOv
+fUPgZxcoOLhsWpHwDleMyJQHn7bg4+Kba2+TpfUQjZpyiDNyeD5vbugUjQlA6BdzlTHgYWcGC44x
+KGB08eQIvitpLoxOMm4sRwN0mq5aaTeEmeYpIg==
+</ds:SignatureValue>
+<ds:KeyInfo Id="Certificate1368817">
+<ds:X509Data>
+<ds:X509Certificate>
+MIIJYzCCB0ugAwIBAgIETkQOEDANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
+BAoTGUJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxNzA1BgNVBAsTLkVOVElEQUQgREUgQ0VSVElG
+SUNBQ0lPTiBERSBJTkZPUk1BQ0lPTi1FQ0lCQ0UxDjAMBgNVBAcTBVFVSVRPMSUwIwYDVQQDExxB
+QyBCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMB4XDTE1MDEzMDE0MDQ1MloXDTE2MDEzMDE0MzQ1
+MlowgbUxCzAJBgNVBAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMTcw
+NQYDVQQLEy5FTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04tRUNJQkNFMQ4w
+DAYDVQQHEwVRVUlUTzE5MBEGA1UEBRMKMDAwMDEwNDE3MTAkBgNVBAMTHUhVR08gQU5EUkVTIFFV
+RVpBREEgSVpRVUlFUkRPMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoaiSY2j3PFJB
+Nousas4nqhf3Krsv64b6wkZJffp+AgWk5ZytJ82O/FSUIa7jmK6nrqRcCdP5AbunqhNFgTLPj1ep
+zG6jE0dGn6031FfsnW9bqQasQ62YG3vf2EfyviFW7PrqGa73xtjSK9luB7IudMzVNxHJJ65NyF1N
+/dsrKYj3Uzb70+WQzAqabkgqV/jGbxeWZPdhXii/toTAPUSkl11u904bvS0yB2BZfN7E3eOa8zuu
+nRxn46c1+RPcWhdGEP3uDkQX1Uwy1ezJXBqNHm/JLmyBBG6UncmUiYlLK1QgsiXzYedDWXKOqM0/
+NqFaUXjra6wcc80Z9yDQJ9HRzwIDAQABo4IEizCCBIcwCwYDVR0PBAQDAgUgMIGRBggrBgEFBQcB
+AQSBhDCBgTA+BggrBgEFBQcwAYYyaHR0cDovL29jc3AuZWNpLmJjZS5lYy9lamJjYS9wdWJsaWN3
+ZWIvc3RhdHVzL29jc3AwPwYIKwYBBQUHMAGGM2h0dHA6Ly9vY3NwMS5lY2kuYmNlLmVjL2VqYmNh
+L3B1YmxpY3dlYi9zdGF0dXMvb2NzcDAuBgorBgEEAYKoOwMKBCATHkdFUkFSRE8gT1JUSVogRSBI
+SUpPUyBDSUEgTFREQTAdBgorBgEEAYKoOwMLBA8TDTAxOTAwNzIwMDIwMDEwGgYKKwYBBAGCqDsD
+AQQMEwowMTA0NzE0MDE5MBsGCisGAQQBgqg7AwIEDRMLSFVHTyBBTkRSRVMwFwYKKwYBBAGCqDsD
+AwQJEwdRVUVaQURBMBkGCisGAQQBgqg7AwQECxMJSVpRVUlFUkRPMBcGCisGAQQBgqg7AwUECRMH
+R0VSRU5URTAvBgorBgEEAYKoOwMHBCETH0FWIENBUkxPUyBKVUxJTyBBUk9TRU1FTkEgS00gMTUw
+GQYKKwYBBAGCqDsDCAQLEwkwNDI1MDY2MzIwGQYKKwYBBAGCqDsDCQQLEwlHdWF5YXF1aWwwFwYK
+KwYBBAGCqDsDDAQJEwdFQ1VBRE9SMCAGCisGAQQBgqg7AzMEEhMQU09GVFdBUkUtQVJDSElWTzAk
+BgNVHREEHTAbgRllY2FycmlvbkBnZXJhcmRvb3J0aXouY29tMIIB3wYDVR0fBIIB1jCCAdIwggHO
+oIIByqCCAcaGgdVsZGFwOi8vYmNlcWxkYXBzdWJwMS5iY2UuZWMvY249Q1JMMTk5LGNuPUFDJTIw
+QkFOQ08lMjBDRU5UUkFMJTIwREVMJTIwRUNVQURPUixsPVFVSVRPLG91PUVOVElEQUQlMjBERSUy
+MENFUlRJRklDQUNJT04lMjBERSUyMElORk9STUFDSU9OLUVDSUJDRSxvPUJBTkNPJTIwQ0VOVFJB
+TCUyMERFTCUyMEVDVUFET1IsYz1FQz9jZXJ0aWZpY2F0ZVJldm9jYXRpb25MaXN0P2Jhc2WGNGh0
+dHA6Ly93d3cuZWNpLmJjZS5lYy9DUkwvZWNpX2JjZV9lY19jcmxmaWxlY29tYi5jcmykgbUwgbIx
+CzAJBgNVBAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMTcwNQYDVQQL
+Ey5FTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04tRUNJQkNFMQ4wDAYDVQQH
+EwVRVUlUTzElMCMGA1UEAxMcQUMgQkFOQ08gQ0VOVFJBTCBERUwgRUNVQURPUjEPMA0GA1UEAxMG
+Q1JMMTk5MB8GA1UdIwQYMBaAFBj58PvmMhyZZjkqyouyaX1JJ7/OMB0GA1UdDgQWBBRSXaxVu5mi
+tvplh5T5DwxUNGlTzzAJBgNVHRMEAjAAMBkGCSqGSIb2fQdBAAQMMAobBFY4LjEDAgSwMA0GCSqG
+SIb3DQEBCwUAA4ICAQB3Y2T9C7Tmz0KYRcN8SAw9NSrKEXp/XTASFuFXcUeVHGlUjJu2v8dkf1HW
+NWjugsxnB4cc/lZ1CUqAgHoyuB7nbWDzhldHaaAkHtp9hb/9XXBBbsMRfoBMtguy3QhTv6WvmN4Q
+Pa0zy4aMAzqSnNoESdLBhQXmy4rjT7m3zgQYSNVoDXMtigbZ5f6o9cVfp5FqhubKYZMIGWonjXwv
+G1/sY5BS5skcyjXsxLHsQvr7SpPcJFx7EV2AgEfGlat1eGlLxl2dVykg3tuWXzedC2PUZ337Ihbz
+C8BkHWg5oEKF9IZYeMMIzXrAFPGmmPn0smUUXsN/pjTOzhT5x4IgT6PAJdDU2MBX/ajsQZs5/Z5v
+RsrGUU18rCC3QBv6bVgzrNODiX4LLraESPIuQVvyhx61PI0cgTmvQrdJfHn8j/IHyLIap8RN9+lX
+0RX3P1XWQLkkoamL3Nu97AeAuXGDfg4PgMKgh8l8kuVwaoA1Xl+FRtGwU/OvNtA4/YLiXD+bKXLu
+G9GS0vNw7T/LTlu5++mIHbtIByMcbLxAKOp8d9UpglCDsmNcsG6uP9bp25I1mcYq+PfKvY1sRYsi
+OcuXRMdRvz5StROrC2N8bV5ke5AvkDkOnjLwFzpJSSC4RYQ2JbyJESU6/4h3XORzgIMr+IOXO86L
+ZN14v8KGFqhrnxeJYQ==
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+oaiSY2j3PFJBNousas4nqhf3Krsv64b6wkZJffp+AgWk5ZytJ82O/FSUIa7jmK6nrqRcCdP5Abun
+qhNFgTLPj1epzG6jE0dGn6031FfsnW9bqQasQ62YG3vf2EfyviFW7PrqGa73xtjSK9luB7IudMzV
+NxHJJ65NyF1N/dsrKYj3Uzb70+WQzAqabkgqV/jGbxeWZPdhXii/toTAPUSkl11u904bvS0yB2BZ
+fN7E3eOa8zuunRxn46c1+RPcWhdGEP3uDkQX1Uwy1ezJXBqNHm/JLmyBBG6UncmUiYlLK1QgsiXz
+YedDWXKOqM0/NqFaUXjra6wcc80Z9yDQJ9HRzw==
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+<ds:Object Id="Signature524252-Object842442"><etsi:QualifyingProperties Target="#Signature524252"><etsi:SignedProperties Id="Signature524252-SignedProperties481695"><etsi:SignedSignatureProperties><etsi:SigningTime>2015-02-18T22:39:09-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>SU+ZNYgz5cuqQg4qgE6T/dz5vd8=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1313082896</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-55720"><etsi:Description>Contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
