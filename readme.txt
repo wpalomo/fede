@@ -1,4 +1,4 @@
-                                 ${project.artifactId}
+                                 fede
 
 
  Created using Knappsack Maven Archetypes. For more information on the 
@@ -51,7 +51,7 @@
  
  Once the application is deployed, it can be viewed using the following URL : 
  
- http://localhost:8080/{project.artifactId}/home.jsf
+ http://localhost:8080/fede/home.jsf
  
  This application can be deployed in any Java EE 6 container through the 
  following methods
