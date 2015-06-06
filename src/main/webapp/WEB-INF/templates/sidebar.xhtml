@@ -36,25 +36,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="home.jsf"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                    <a href="#{facesContext.externalContext.requestContextPath}/"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-archive fa-fw"></i> Facturas<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="flot.html">Salud</a>
+                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=salud">Salud</a>
                         </li>
                         <li>
-                            <a href="morris.html">Alimentación</a>
+                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=alimentacion">Alimentación</a>
                         </li>
                         <li>
-                            <a href="morris.html">Ropa/Otros</a>
+                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=ropa">Ropa/Otros</a>
                         </li>
                         <li>
-                            <a href="morris.html">Educación</a>
+                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=educacion">Educación</a>
                         </li>
                         <li>
-                            <a href="morris.html">Vivienda</a>
+                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=vivienda">Vivienda</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
