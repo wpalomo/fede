@@ -20,3 +20,33 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     Author     : jlgranda
 */
 
+.navbar-brand {
+    min-width: 235px
+}
+
+.toolbar {
+    z-index: 1;
+    position: relative;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-module {
+    color: #777;
+    font-size: 20px;
+    font-weight: normal;
+    text-decoration: none !important;
+    padding: 15px;
+    min-width: 235px;
+    float: left;
+    line-height: 20px;
+    height: 50px;
+}
+
+.navbar-module:hover {
+    color: #5E5E5E;
+    background-color: transparent;
+}

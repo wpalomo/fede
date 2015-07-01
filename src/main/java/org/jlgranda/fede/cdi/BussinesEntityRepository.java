@@ -6,13 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Stereotype;
+import javax.inject.Qualifier;
 
 
 //@Qualifier
 //@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 
-@ApplicationScoped
-@Stereotype 
-@Target(ElementType.TYPE) 
-@Retention(RetentionPolicy.RUNTIME) 
+@Qualifier
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
 public @interface BussinesEntityRepository {}

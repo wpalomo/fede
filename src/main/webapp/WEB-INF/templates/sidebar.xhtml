@@ -18,60 +18,29 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:body>
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                <li class="sidebar-search">
-                    <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Búsqueda..."></input>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                    <!-- /input-group -->
+
+                <li>
+                    <a href="#{facesContext.externalContext.requestContextPath}/pages/facturas.jsf?tags=fede">#{i18n['Fede']}</a>
                 </li>
                 <li>
-                    <a href="#{facesContext.externalContext.requestContextPath}/"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+                    <a href="#{facesContext.externalContext.requestContextPath}/pages/facturas.jsf?tags=alimentacion">#{i18n['Alimentos']}</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-archive fa-fw"></i> Facturas<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=salud">Salud</a>
-                        </li>
-                        <li>
-                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=alimentacion">Alimentación</a>
-                        </li>
-                        <li>
-                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=ropa">Ropa/Otros</a>
-                        </li>
-                        <li>
-                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=educacion">Educación</a>
-                        </li>
-                        <li>
-                            <a href="#{facesContext.externalContext.requestContextPath}/facturas.jsf?tag=vivienda">Vivienda</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
+                    <a href="#{facesContext.externalContext.requestContextPath}/pages/facturas.jsf?tags=ropa">#{i18n['Ropa']}</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa- fa-fw"></i> Herramientas<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="panels-wells.html">Ingresar factura</a>
-                        </li>
-                        <li>
-                            <a href="buttons.html">Generar declaracion</a>
-                        </li>
-                        
-                    </ul>
-                    <!-- /.nav-second-level -->
+                    <a href="#{facesContext.externalContext.requestContextPath}/pages/facturas.jsf?tags=educacion">#{i18n['Educacion']}</a>
                 </li>
+                <li>
+                    <a href="#{facesContext.externalContext.requestContextPath}/pages/facturas.jsf?tags=vivienda">#{i18n['Vivienda']}</a>
+                </li>
+
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

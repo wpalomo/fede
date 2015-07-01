@@ -18,7 +18,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
 
     <h:body>
@@ -29,12 +28,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">fede beta</a>
+            <a class="navbar-brand" href="#{facesContext.externalContext.requestContextPath}/">#{i18n['app.name']} #{i18n['app.version']}</a>
         </div>
         <!-- /.navbar-header -->
 
+        <h:form class="navbar-form navbar-left" role="search">
+            <div class="input-group custom-search-form">
+                <input type="text" class="form-control" placeholder="#{i18n['Search']}"></input>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+            <!-- /input-group -->
+        </h:form>
+
         <ul class="nav navbar-top-links navbar-right">
-            <li class="dropdown">
+<!--            <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                 </a>
@@ -82,10 +93,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         </a>
                     </li>
                 </ul>
-                <!-- /.dropdown-messages -->
-            </li>
+                 /.dropdown-messages 
+            </li>-->
             <!-- /.dropdown -->
-            <li class="dropdown">
+<!--            <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
                 </a>
@@ -161,10 +172,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         </a>
                     </li>
                 </ul>
-                <!-- /.dropdown-tasks -->
-            </li>
+                 /.dropdown-tasks 
+            </li>-->
             <!-- /.dropdown -->
-            <li class="dropdown">
+<!--            <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
                 </a>
@@ -221,20 +232,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         </a>
                     </li>
                 </ul>
-                <!-- /.dropdown-alerts -->
-            </li>
+                 /.dropdown-alerts 
+            </li>-->
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="#{facesContext.externalContext.requestContextPath}/profile"><i class="fa fa-user fa-fw"></i> #{i18n['Profile']}</a>
                     </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="#{facesContext.externalContext.requestContextPath}/setting"><i class="fa fa-gear fa-fw"></i> #{i18n['Settings']}</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#{facesContext.externalContext.requestContextPath}/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="#{facesContext.externalContext.requestContextPath}/logout"><i class="fa fa-sign-out fa-fw"></i> #{i18n['Logout']}</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
