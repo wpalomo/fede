@@ -34,7 +34,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
         <h:form class="navbar-form navbar-left" role="search">
             <div class="input-group custom-search-form">
-                <input type="text" class="form-control" placeholder="#{i18n['Search']}"></input>
+                <input id="searchbox" type="text" class="form-control" placeholder="#{i18n['Search']}"></input>
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button">
                         <i class="fa fa-search"></i>
@@ -237,7 +237,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    #{subject.firstname} <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="#{facesContext.externalContext.requestContextPath}/profile"><i class="fa fa-user fa-fw"></i> #{i18n['Profile']}</a>

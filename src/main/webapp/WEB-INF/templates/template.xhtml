@@ -22,15 +22,15 @@
         <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/metisMenu/dist/metisMenu.min.css" />
         <!-- DataTables CSS -->
         <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" />
-        
+
         <!-- DataTables Responsive CSS -->
         <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/datatables-responsive/css/dataTables.responsive.css" />
-        
+
         <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/dist/css/timeline.css" />
         <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/dist/css/sb-admin-2.css" />
         <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/morrisjs/morris.css" />
         <link rel="stylesheet" href="#{request.contextPath}/resources/startbootstrap-sb-admin-2-1.0.7/bower_components/font-awesome/css/font-awesome.min.css"/>
-<!--        <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/font-awesome/css/font-awesome.min.css" />-->
+        <!--        <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/font-awesome/css/font-awesome.min.css" />-->
         <!-- Custom CSS -->
 
         <!-- Our customizations -->
@@ -55,25 +55,28 @@
 
                 <ui:include src="./navigation.xhtml" />
                 <!-- /.navbar-top-links -->
-                
-                
-<!--                <div class="navbar-default sidebar" role="navigation">
-                     MENU sidebar 
-                    <ui:include src="./sidebar.xhtml" />
 
-                </div>-->
+
+                <!--                <div class="navbar-default sidebar" role="navigation">
+                                     MENU sidebar 
+                                    <ui:include src="./sidebar.xhtml" />
+                
+                                </div>-->
                 <!-- /.navbar-static-side -->
-                
+
             </nav>
-            
-            <ui:insert name="toolbar"></ui:insert>
-                <!-- /. toolbar -->
-
-            <div id="page-wrapper">
-                <ui:insert name="content"></ui:insert>
+            <div id="form_container">
+                <h:form id="form">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                    <ui:insert name="toolbar"></ui:insert>
+                    <!-- /. toolbar -->
+                    
+                    <div id="page-wrapper">
+                        <ui:insert name="content"></ui:insert>
+                    </div>
+                    <!-- /#page-wrapper -->
+                </h:form>
             </div>
-            <!-- /#page-wrapper -->
-
         </div>
         <!-- /#wrapper -->
 
@@ -85,7 +88,7 @@
         <!--                    <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/jquery/dist/jquery.min.js" />-->
         <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap/dist/js/bootstrap.min.js" />
         <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/metisMenu/dist/metisMenu.min.js" />
-        
+
         <!-- DataTables JavaScript -->
         <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/datatables/media/js/jquery.dataTables.min.js" />
         <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js" />
@@ -95,7 +98,7 @@
         <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/dist/js/sb-admin-2.js" />
         <!---->
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-        
+
         <ui:insert name="script"></ui:insert>
     </h:body>
 </html>

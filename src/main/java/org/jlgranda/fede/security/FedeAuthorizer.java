@@ -30,9 +30,9 @@ import org.jpapi.model.profile.Subject;
  */
 public class FedeAuthorizer {
     @Secures
-    @FedeSecurityBinding
+    @LoggedIn
     public boolean doSecuredCheck(InvocationContext invocationContext, BeanManager manager, @LoggedIn Subject subject) throws Exception
     {
-        return subject.isLoggedIn(); // perform security check
+        return subject == null ? false : subject.isLoggedIn(); // perform security check
     }
 }

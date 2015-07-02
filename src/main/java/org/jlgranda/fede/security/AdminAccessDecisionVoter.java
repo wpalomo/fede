@@ -18,27 +18,31 @@
 package org.jlgranda.fede.security;
 
 import java.util.Set;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigResolver;
-import org.apache.deltaspike.core.api.provider.BeanProvider;
+import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.deltaspike.security.api.authorization.AbstractAccessDecisionVoter;
 import org.apache.deltaspike.security.api.authorization.AccessDecisionVoterContext;
 import org.apache.deltaspike.security.api.authorization.SecurityViolation;
+import org.jlgranda.fede.controller.SubjectHome;
 
 /**
  *
  * @author jlgranda
  */
-@SessionScoped //or @WindowScoped
+@ApplicationScoped
 public class AdminAccessDecisionVoter extends AbstractAccessDecisionVoter {
-
+    
+    @Inject
+    private SubjectHome subjectHome;
+      
     @Override
-    protected void checkPermission(AccessDecisionVoterContext advc, Set<SecurityViolation> set) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void checkPermission(AccessDecisionVoterContext accessDecisionVoterContext,
+                                   Set<SecurityViolation> violations) {
+        if (!subjectHome.isLoggedIn()) {
+            violations.add(newSecurityViolation("TODO: cambiar mensaje"));
+        }
     }
-
 //    @Inject
 //    private ViewConfigResolver viewConfigResolver;
 //
