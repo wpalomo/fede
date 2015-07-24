@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2015 jlgranda.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+    <style type="text/css">
+        .ui-selectonemenu label.ui-selectonemenu-label {
+            padding-right: 28px;
+            text-align: left;
+        }
+    </style>
+    <c:set var="id" value="#{not empty id ? id : (not empty name ? name : action)}" />
+    <c:set var="required" value="#{not empty required and required}" />
+    <c:set var="render" value="#{not empty render ? 'panel-group-'.concat(render) : (not empty id ? 'panel-group-'.concat(id) : 'panel-group-'.concat(mame))}" />
+    <c:set var="validator" value="#{not empty validator ? validator : 'safeTextUTF8Validator'}" />
+    <c:set var="converter" value="#{not empty converter ? converter : omnifaces.SelectItemsConverter}" />    
+    <c:set var="disabled" value="#{not empty disabled ? disabled : 'false'}" />
+    <c:set var="placeholder" value="#{not empty placeholder ? placeholder : 'false'}" />  
+    <c:set var="class" value="#{not empty class ? class : 'form-control'}" />   
+    <c:set var="inlinehelp" value="#{not empty inlinehelp ? inlinehelp : ''}" /> 
+    <!-- TODO habilitar o deshabilitar ajax validation -->
+    <h:panelGroup id="panel-group-#{id}" layout="block" class="form-group">
+        <c:if test="#{placeholder == 'false'}">
+            <label for="#{name}">#{label}</label>
+        </c:if>
+        <c:choose>
+            <c:when test="#{type == 'java.lang.String' or type == 'text'}">
+                <p:inputText id="#{name}" value="#{value}" placeholder="#{placeholder == 'true' ? label :  ''}"
+                             required="#{required}" disabled="#{disabled}"
+                             class="#{class}">
+                    <f:validator validatorId="#{validator}"/>
+                    <p:ajax event="blur" update="#{render}" partialSubmit="true"/>
+                </p:inputText>
+            </c:when>
+            <c:when test="#{type == 'password'}">
+                <p:password id="#{name}" value="#{value}" placeholder="#{placeholder == 'true' ? label :  ''}"
+                             required="#{required}" disabled="#{disabled}" autocomplete="off"
+                             class="#{class}" redisplay="true">
+                    <f:validator validatorId="#{validator}"/>
+                    <p:ajax event="blur" update="#{render}" partialSubmit="true"/>
+                </p:password>
+            </c:when>
+            <c:when test="#{type == 'java.util.Date' or type == 'calendar'}">
+                <p:calendar value="#{value}" id="#{name}" navigator="true" label="#{label}" disabled="false" class="#{class}">
+                    <f:validator validatorId="#{validator}"/>        
+                    <p:ajax event="dateSelect" update="#{render}" partialSubmit="true"/>
+                </p:calendar>  
+            </c:when>
+            <c:when test="#{type == 'java.lang.Boolean' or type == 'checkbox'}">
+                <h:selectBooleanCheckbox value="#{value}" id="#{name}" required="#{required}" label="#{label}">
+                    <f:ajax execute="#{execute}" render="#{render}"  />
+                </h:selectBooleanCheckbox>
+                <span>#{inlinehelp}</span>
+            </c:when>
+            <c:when test="#{type == 'java.lang.MultiLineString' or type == 'textarea'}">
+                <p:inputTextarea value="#{value}" id="#{name}"
+                                 required="#{required}" label="#{label}" autoResize="false" class="#{class}" rows="3">
+                    <p:ajax update="#{render}" partialSubmit="true"/>
+                </p:inputTextarea>
+            </c:when>
+            <c:when test="#{type == 'java.lang.String[]' or type == 'select'}">
+                <p:selectOneMenu value="#{value}" effect="fade"  converter="#{converter}" 
+                                 required="#{required}" requiredMessage="#{requiredMessage}" class="#{class}">  
+                    <f:selectItems value="#{values}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
+                    <p:ajax event="change" listener="#{listener}" update="#{render}" partialSubmit="true"/>
+                </p:selectOneMenu>  
+            </c:when>
+            <c:when test="#{type == 'java.lang.Long' or type == 'java.lang.Double' or type == 'java.lang.Float' or type == 'decimal'}">
+<!--                    <pe:inputNumber id="#{name}" value="#{value}" required="#{required}" label="#{label}">  
+                    <p:ajax event="blur" update="#{render}" partialSubmit="true"/>
+                </pe:inputNumber>  -->
+            </c:when>
+            <c:otherwise>
+                <h:inputText value="#{value}" id="#{name}" required="#{required}" label="#{label}" class="#{class}">
+                    <f:ajax execute="#{execute}" render="#{render}"  />
+                </h:inputText>
+            </c:otherwise>
+        </c:choose>
+        <p class="help-block">#{inlinehelp}</p>
+    </h:panelGroup>  
+</ui:composition>

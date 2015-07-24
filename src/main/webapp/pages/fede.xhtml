@@ -5,13 +5,21 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
-    <ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:composition template="/WEB-INF/templates/fede.xhtml">
         <ui:param name="sitename" value="#{i18n['Sitename']}" />
         <ui:param name="title" value="#{i18n['Dashboard']}" />
         <ui:define name="params">
             <f:metadata>
                 <f:viewParam name="tags" value="#{facturaElectronicaHome.tags}" />
             </f:metadata>
+        </ui:define>
+        <ui:define name="navigation">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+                <ui:include src="/WEB-INF/templates/navigation.xhtml" />
+                <!-- /.navbar-top-links -->
+            </nav>
         </ui:define>
         <ui:define name="toolbar">
             <nav class="navbar navbar-default toolbar">
@@ -44,7 +52,7 @@
                 </p:commandButton>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span id="pagination-info" class="">Default</span>
+                        <span id="pagination-info" class=""></span>
                         <button id="pagination-previous" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-left"></i></button>
                         <button id="pagination-next" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-right"></i></button>
                     </li>
@@ -58,6 +66,17 @@
                         </ul>
                     </li>
                 </ul>
+                <div class="navbar-default sidebar" role="navigation">
+                    <!--MENU sidebar--> 
+                    <ul class="nav" id="side-menu">
+                    <ui:repeat var="tag" value="#{facturaElectronicaHome.groups}">
+                    <li>
+                        <a href="#{facesContext.externalContext.requestContextPath}/pages/fede.jsf?tags=#{tag.code}">#{tag.name}</a>
+                    </li>
+                    </ui:repeat>
+                    </ul>
+                </div>
+                <!-- /.navbar-static-side -->
             </nav>
         </ui:define>
         <ui:define name="content">
@@ -73,7 +92,6 @@
                                         <tr>
                                             <th># Factura</th>
                                             <th>Emisor</th>
-                                            <th>Moneda</th>
                                             <th>Importe total</th>
                                             <th>Fecha de emisión</th>
                                         </tr>
@@ -83,9 +101,16 @@
                                             <tr class="odd gradeX">
                                                 <td>#{facturaElectronica.code}</td>
                                                 <td>#{facturaElectronica.organization.initials}</td>
-                                                <td class="center">#{facturaElectronica.moneda}</td>
-                                                <td>#{facturaElectronica.importeTotal}</td>
-                                                <td>#{facturaElectronica.fechaEmision}</td>
+                                                <td class="text-right">
+                                                    <h:outputText value="#{facturaElectronica.importeTotal}">
+							<f:convertNumber type="currency" currencySymbol="$" locale="en_US"/>
+                                                    </h:outputText>
+                                                </td>
+                                                <td class="text-right">
+                                                    <h:outputText value="#{facturaElectronica.fechaEmision}">
+                                                        <f:convertDateTime pattern="#{fedeAPI.getSettingValue('fede.date.pattern', 'dd/MM/yyyy')}" />
+                                                    </h:outputText>
+                                                </td>
                                             </tr>
                                         </ui:repeat>
                                     </tbody>

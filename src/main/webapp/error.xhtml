@@ -18,26 +18,78 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>#{sitename}&#160;&#187;&#160;#{title}</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Cache-Control" content="must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="Mon, 1 Aug 1999 10:00:00 GMT" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/font-awesome/css/font-awesome.min.css" />
+        <!-- Custom CSS -->
+
+        <!-- Our customizations -->
+        <h:outputStylesheet name="/css/fede.css" />
+        <h:outputStylesheet name="/css/sticky-footer-navbar.css" />
+        <!--<h:outputScript name="application.js" />-->
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+         <![endif]-->
+    </h:head>
     <body>
-        <h:form>
-            The error message is:  
-            <b>
-                #{requestScope['javax.servlet.error.message']}  
-            </b>
-            <p />
-            <h:commandButton value="Regresar" action="/index.html" /> 
-            <p /> 
-            <font color="RED">  
-                Please show the system administator the error below.  
-            </font>  
-            <p />  
-            <textarea rows="30" cols="100">  
-           <h:outputText escape="false" value="#{controller.stackTrace}"/>  
-            </textarea>  
-            <p />
-        </h:form>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#{facesContext.externalContext.requestContextPath}/">#{i18n['app.name']} #{i18n['app.version']}</a>
+                </div>
+                <!-- /.navbar-header -->
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h:form class="form">
+                        #{i18n['error.message']} <strong>#{requestScope['javax.servlet.error.message']}</strong>
+                        <h3 style="color:red;">#{i18n['error.message.warning']}</h3>
+                        <fieldset>
+                            <div class="form-group">
+                                <textarea class="form-control">  
+                                    <h:outputText escape="false" value="#{controller.stackTrace}"/>  
+                                </textarea>  							
+                            </div>
+                        </fieldset>
+                        <a href="#{facesContext.externalContext.requestContextPath}" class="btn btn-default">#{i18n['back']}</a>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- /#wrapper -->
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">#{i18n['PoweredBy']}#{' '}<a href="#{i18n['PoweredBy.url']}">#{i18n['PoweredBy.brand']}</a></p>
+            </div>
+        </footer>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <!---->
+        <!--                    <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/jquery/dist/jquery.min.js" />-->
+        <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap/dist/js/bootstrap.min.js" />
 
     </body>
 </html>

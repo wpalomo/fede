@@ -45,7 +45,10 @@
         <param-name>com.sun.faces.allowTextChildren</param-name>
         <param-value>true</param-value>
     </context-param>
-
+    <context-param>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/jlgranda.taglib.xml</param-value>
+    </context-param>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

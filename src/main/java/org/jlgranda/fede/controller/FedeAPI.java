@@ -17,12 +17,15 @@
  */
 package org.jlgranda.fede.controller;
 
+import com.jlgranda.fede.ejb.SettingService;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.jlgranda.fede.util.FacturaUtil;
 import org.jlgranda.fede.model.document.FacturaElectronica;
 import org.jlgranda.fede.sri.jaxb.factura.v110.Factura;
+import org.jpapi.model.Setting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,11 +40,21 @@ public class FedeAPI implements Serializable {
     
     Logger  logger = LoggerFactory.getLogger(FedeAPI.class);
     
+    @EJB
+    private SettingService settingService;
+    
     public Factura readFactura(FacturaElectronica facturaElectronica){
         return readFactura(facturaElectronica.getContenido());
     }
     
     public Factura readFactura(String xml){
         return FacturaUtil.read(xml);
+    }
+    
+    public String getSettingValue(String name, String defaultValue){
+        Setting s = settingService.findByName(name);
+        if (s == null)
+            return defaultValue;
+        return s.getValue();
     }
 }

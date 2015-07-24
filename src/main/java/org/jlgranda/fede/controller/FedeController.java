@@ -38,6 +38,8 @@ import org.slf4j.LoggerFactory;
 public abstract class FedeController {
     
     Logger  logger = LoggerFactory.getLogger(FedeController.class);
+    
+    String outcome = "home";
 
     /**
      * Gets the http servlet request.
@@ -208,4 +210,14 @@ public abstract class FedeController {
     }
             
     public abstract void handleReturn(SelectEvent event);
+
+    public String getOutcome() {
+        return outcome;
+    }
+
+    public void setOutcome(String outcome) {
+        this.outcome = outcome;
+    }
+    
+    
 }

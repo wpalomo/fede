@@ -20,7 +20,6 @@ package org.jlgranda.fede.security;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.interceptor.InvocationContext;
 import org.apache.deltaspike.security.api.authorization.Secures;
-import org.jlgranda.fede.cdi.FedeSecurityBinding;
 import org.jlgranda.fede.cdi.LoggedIn;
 import org.jpapi.model.profile.Subject;
 

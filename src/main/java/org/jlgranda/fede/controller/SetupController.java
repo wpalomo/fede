@@ -102,9 +102,9 @@ public class SetupController implements Serializable {
 
                 this.userTransaction.begin();
                 User user = new User("admin");
-                user.setFirstName("José Luis");
-                user.setLastName("Granda");
-                user.setEmail("jlgranda81@gmail.com");
+                user.setFirstName("Administrador");
+                user.setLastName("fede");
+                user.setEmail("admin@fede.com");
                 user.setCreatedDate(Dates.now());
                 identityManager.add(user);
 
@@ -114,7 +114,7 @@ public class SetupController implements Serializable {
                 Role superuser = new Role("superuser");
                 identityManager.add(superuser);
 
-                Group group = new Group("jlgranda.com");
+                Group group = new Group("fede");
                 identityManager.add(group);
 
                 Role admin = new Role("admin");
@@ -128,7 +128,7 @@ public class SetupController implements Serializable {
                 grantGroupRole(relationshipManager, user, superuser, group);
                 // Grant the "superuser" application role to jane
                 grantRole(relationshipManager, user, superuser);
-                log.info("Creador usuario jlgranda!" + user);
+                log.info("Creador usuario " + user);
                 this.userTransaction.commit();
             } catch (NotSupportedException | SystemException | IdentityManagementException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException e) {
                 try {
