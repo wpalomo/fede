@@ -60,7 +60,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Controlador de entidades Subject: signup, profile
  * @author jlgranda
  */
 @Named
@@ -83,6 +83,9 @@ public class SubjectHome extends FedeController implements Serializable {
     
     @EJB
     SettingService settingService;
+    
+    @Inject
+    GroupHome groupHome;
     
     @Inject
     private PartitionManager partitionManager;
@@ -135,6 +138,9 @@ public class SubjectHome extends FedeController implements Serializable {
         this.signup = signup;
     }
     
+    /**
+     * Procesa la creación de una cuenta en fede
+     */
     public void processSignup(){
         
         identityManager = partitionManager.createIdentityManager();
@@ -194,6 +200,10 @@ public class SubjectHome extends FedeController implements Serializable {
                 //Finalmente crear en fede
                 signup.setUuid(user.getId());
                 subjectService.save(signup);
+                
+                //Crear grupos por defecto para el subject
+                groupHome.createDefaultGroups(signup);
+                
             } catch (NotSupportedException | SystemException | IdentityManagementException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException e) {
                 try {
                     this.userTransaction.rollback();

@@ -8,10 +8,9 @@
       xmlns:jlgranda="http://jlgranda.com/jsf/facelets">
     <ui:composition template="/WEB-INF/templates/fede.xhtml">
         <ui:param name="sitename" value="#{i18n['Sitename']}" />
-        <ui:param name="title" value="#{i18n['Dashboard']}" />
+        <ui:param name="title" value="#{i18n['Profile']}" />
         <ui:define name="params">
             <f:metadata>
-                <f:viewParam name="tags" value="#{facturaElectronicaHome.tags}" />
             </f:metadata>
         </ui:define>
         <ui:define name="navigation">
@@ -40,7 +39,7 @@
         <ui:define name="content">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <h1>#{i18n['Hello']} #{subject.firstname}&nbsp;&lt;#{subject.email}&gt;</h1>
+                    <h1>#{i18n['Hello']} #{subject.firstname}&nbsp;&lt;#{subject.fedeEmail}&gt;</h1>
                 </div>
             </div>
             <div class="row">
@@ -59,6 +58,8 @@
                                         value="#{subject.surname}" required="true" inlinehelp="#{messages['lastname.inlinehelp']}" execute="@this save" render="lstn"/>
                                     <jlgranda:input id="bio" name="bio" type="textarea" label="#{i18n['bio']}" 
                                         value="#{subject.bio}" required="false" inlinehelp="#{messages['bio.inlinehelp']}" execute="@this save" render="bio"/>
+                                    <jlgranda:input id="addrs" name="addrs" type="textarea" label="#{i18n['address']}" 
+                                        value="#{subject.description}" required="false" inlinehelp="#{messages['address.inlinehelp']}" execute="@this save" render="addrs"/>
                                     <p:commandButton value="#{i18n['Save']}" ajax="true" actionListener="#{subjectHome.save(subject)}" disabled="false" />
                                     <p:commandButton value="#{i18n['Cancel']}" ajax="true" action="home" disabled="false" />
                                 </div>
