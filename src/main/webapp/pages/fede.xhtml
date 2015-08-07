@@ -99,7 +99,7 @@
                                     <tbody>
                                         <ui:repeat value="#{facturaElectronicaHome.listarFacturasElectronicas()}" var="facturaElectronica">
                                             <tr class="odd gradeX">
-                                                <td>#{facturaElectronica.code}</td>
+                                                <td><a href="#{facesContext.externalContext.requestContextPath}/pages/fede/ride.jsf?key=#{facturaElectronica.id}">#{facturaElectronica.code}</a></td>
                                                 <td>#{facturaElectronica.organization.initials}</td>
                                                 <td class="text-right">
                                                     <h:outputText value="#{facturaElectronica.importeTotal}">

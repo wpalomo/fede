@@ -26,6 +26,8 @@ import org.jlgranda.fede.util.FacturaUtil;
 import org.jlgranda.fede.model.document.FacturaElectronica;
 import org.jlgranda.fede.sri.jaxb.factura.v110.Factura;
 import org.jpapi.model.Setting;
+import org.jpapi.model.TaxRateIVAType;
+import org.jpapi.model.TaxType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,5 +58,29 @@ public class FedeAPI implements Serializable {
         if (s == null)
             return defaultValue;
         return s.getValue();
+    }
+    
+    public String translate(String key, Enum e){
+        
+        if (e instanceof TaxRateIVAType){
+                TaxRateIVAType t = (TaxRateIVAType) e;
+                return t.translate(TaxRateIVAType.encode(key));
+        } else if (e instanceof TaxType){
+                TaxType t = (TaxType) e;
+                return t.translate(TaxType.encode(key));
+        }
+        return "undefined!";
+    }
+    
+    public String translateTaxRateIVA(String key){
+        return translate(key, TaxRateIVAType.NONE);
+    }
+    
+    public static void main(String[] args) {
+        FedeAPI api = new FedeAPI();
+        System.err.println("---> " +  api.translate("0", TaxRateIVAType.NONE));
+        System.err.println("---> " +  api.translate("2", TaxRateIVAType.NONE));
+        System.err.println("---> " +  api.translate("6", TaxRateIVAType.NONE));
+        System.err.println("---> " +  api.translate("7", TaxRateIVAType.NONE));
     }
 }

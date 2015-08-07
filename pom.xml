@@ -16,7 +16,7 @@
         <primefaces.version>5.2</primefaces.version>
         <primefaces.theme.version>1.0.10</primefaces.theme.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
-         <!-- WildFly dependency versions -->
+        <!-- WildFly dependency versions -->
         <version.wildfly.maven.plugin>1.0.1.Final</version.wildfly.maven.plugin>
 
         <!-- PicketLink dependency versions -->
@@ -51,17 +51,17 @@
     </repositories>
 
     <dependencyManagement>
-    <dependencies>
-      <!-- Dependency Management for PicketLink and Java EE 6.0. -->
-      <dependency>
-        <groupId>org.picketlink</groupId>
-        <artifactId>picketlink-javaee-6.0</artifactId>
-        <version>${version.picketlink.javaee.bom}</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+        <dependencies>
+            <!-- Dependency Management for PicketLink and Java EE 6.0. -->
+            <dependency>
+                <groupId>org.picketlink</groupId>
+                <artifactId>picketlink-javaee-6.0</artifactId>
+                <version>${version.picketlink.javaee.bom}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
   
     <dependencies>
         <dependency>
@@ -213,7 +213,7 @@
             <version>${primefaces.theme.version}</version> 
         </dependency>  
     
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
             <version>1.2</version>
@@ -264,6 +264,11 @@
             <version>18.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>5.6.1</version>
+        </dependency>
     </dependencies>
     
  

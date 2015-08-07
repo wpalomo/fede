@@ -95,6 +95,8 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     private Group defaultGroup = null;
 
     private String tags;
+    
+    private String keys;
 
     private List<UploadedFile> uploadedFiles = Collections.synchronizedList(new ArrayList<UploadedFile>());
 
@@ -333,6 +335,14 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public String getKeys() {
+        return keys;
+    }
+
+    public void setKeys(String keys) {
+        this.keys = keys;
     }
 
     public List<Group> getGroups() {
