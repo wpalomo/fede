@@ -26,6 +26,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import org.apache.commons.lang3.StringUtils;
 import org.jpapi.model.CodeType;
 import org.jpapi.model.Group;
 import org.jpapi.model.StatusType;
@@ -57,30 +58,45 @@ public class GroupHome extends FedeController implements Serializable {
     }
     
     
+    /**
+     * Crea los grupos por defecto a partir de una cadena 
+     * con el formato name {color, icon}, para la instancia <tt>Subject</tt>
+     * 
+     * @param subject 
+     */
     public void createDefaultGroups(Subject subject) {
         
         Map<String, String> props = new HashMap<String, String>();
         
         //email settings
-        props.put("fede", "fede");
-        props.put("salud", "Salud");
-        props.put("alimentos", "Alimentos");
-        props.put("ropa", "Ropa");
-        props.put("educacion", "Educación");
-        props.put("vivienda", "Vivienda");
+        props.put("fede", "fede {panel-success, fa fa-cloud fa-5x}");
+        props.put("salud", "Salud {panel-primary, fa fa-heartbeat fa-5x}");
+        props.put("alimentos", "Alimentos {panel-sucess, fa fa-icon-shopping-cart fa-5x}");
+        props.put("ropa", "Ropa {panel-green, fa fa-tag fa-5x}");
+        props.put("educacion", "Educación {panel-yellow, fa fa-graduation-cap fa-5x}");
+        props.put("vivienda", "Vivienda {panel-red, fa fa-home fa-5x}");
 
         Group group = null;
         String value = null;
+        String icon = null;
+        String color = null;
+        String attrs = null;
         for (String key : props.keySet()){
             value = props.get(key);
+            attrs = value.substring(value.indexOf("{"), value.indexOf("}"));
+            icon = attrs.split(",")[0];
+            color = attrs.split(",")[1];
+            value = value.substring(0, (value.indexOf("{") - 1));
             group = groupService.createInstance();
             group.setCode(key);
             group.setName(value);
             group.setOwner(subject);
+            group.setColor(color);
+            group.setIcon(icon);
             
             groupService.save(group);
             
-            logger.info("Added group id: {}, code: {}, name: [{}]", group.getId(), group.getCode(), group.getName());
+            logger.info("Added group id: {}, code: {}, name: [{}], props: name: [{}, {}]", group.getId(), group.getCode(), group.getName(), group.getColor(), group.getIcon());
         }
     }
 }

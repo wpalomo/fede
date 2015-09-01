@@ -29,6 +29,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.mail.MessagingException;
@@ -45,12 +46,14 @@ import org.jpapi.model.Group;
 import org.jpapi.model.management.Organization;
 import org.jpapi.model.profile.Subject;
 import org.jpapi.util.Dates;
-import org.picketlink.idm.credential.Password;
 import org.primefaces.event.FileUploadEvent;
 import com.jlgranda.fede.SettingNames;
 import com.jlgranda.fede.ejb.GroupService;
+import com.jlgranda.fede.ejb.url.reader.FacturaElectronicaURLReader;
 import java.util.Collections;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
+import javax.faces.validator.Validator;
 import javax.inject.Inject;
 import org.jlgranda.fede.cdi.LoggedIn;
 import org.jpapi.model.SourceType;
@@ -97,8 +100,32 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     private String tags;
     
     private String keys;
+    
+    /**
+     * Inicio del rango de fecha
+     */
+    private Date start;
+    
+    /**
+     * Fin del rango de fecha
+     */
+    private Date end;
+    
+    private String url;
+    
+    private List<String> urls = new ArrayList<>();
 
     private List<UploadedFile> uploadedFiles = Collections.synchronizedList(new ArrayList<UploadedFile>());
+
+    public FacturaElectronicaHome() {
+    }
+    
+    @PostConstruct
+    private void init() {
+        int amount = Integer.valueOf(settingService.findByName(SettingNames.DASHBOARD_RANGE).getValue());
+        setEnd(Dates.now());
+        setStart(Dates.addDays(getEnd(), -1 * amount));
+    }
 
     public List<UploadedFile> getUploadedFiles() {
         return uploadedFiles;
@@ -108,6 +135,35 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
         this.uploadedFiles = uploadedFiles;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public List<String> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(List<String> urls) {
+        this.urls = urls;
+    }
+
+    public void addURL(){
+        if (getUrl().isEmpty()) return;
+        if (Strings.isUrl(getUrl()) && (getUrl().endsWith(".zip") || getUrl().endsWith(".xml"))){
+            this.urls.add(getUrl());
+        } else {
+            addErrorMessage(I18nUtil.getMessages("action.fail"), I18nUtil.getMessages("add.url.invalid"));
+        }
+    }
+    
+    public void removeURL(String url){
+        this.urls.remove(url);
+    }
+    
     /**
      * Obtener todas las facturas disponibles en el sistema
      *
@@ -144,7 +200,24 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
      * @return lista de facturas electrónicas
      */
     public List<FacturaElectronica> listarFacturasElectronicas(String tag) {
-        return facturaElectronicaService.listarFacturasElectronicas(tag, subject);
+        return facturaElectronicaService.listarFacturasElectronicas(tag, subject, getStart(), getEnd());
+    }
+    
+    /**
+     * Obtener todas las facturas disponibles en el sistema para el usuario
+     * actual dados los ids de la instancia actual <tt>FacturaElectronicaHome</tt>
+     *
+     * @return lista de facturas electrónicas
+     */
+    public List<FacturaElectronica> listarFacturasElectronicasPorIds() {
+        if (getKeys().isEmpty())
+            return new ArrayList<>();
+        
+        List<Long> ids = new ArrayList<>();
+        for (String s : getKeys().split(KEY_SEPARATOR)){
+            ids.add(Long.valueOf(s));
+        }
+        return facturaElectronicaService.findByNamedQuery("BussinesEntity.findByIds", ids);
     }
 
     /**
@@ -152,9 +225,9 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
      *
      * @return
      */
-    public BigDecimal getImporteTotal() {
+    public BigDecimal calcularImporteTotal(String tag) {
         BigDecimal total = new BigDecimal(0);
-        for (FacturaElectronica fe : facturaElectronicaService.listarFacturasElectronicas()) {
+        for (FacturaElectronica fe : facturaElectronicaService.listarFacturasElectronicas(tag, subject, getStart(), getEnd())) {
             total = total.add(fe.getImporteTotal());
         }
         return total;
@@ -162,6 +235,10 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
 
     public void mostrarFormularioCargaFacturaElectronica() {
         super.openDialog(SettingNames.POPUP_SUBIR_FACTURA_ELECTRONICA, 800, 600, true);
+    }
+    
+    public void mostrarFormularioDescargaFacturaElectronica() {
+        super.openDialog(SettingNames.POPUP_DESCARGAR_FACTURA_ELECTRONICA, 800, 600, true);
     }
 
     public List<FacturaElectronica> importarDesdeInbox() {
@@ -208,7 +285,34 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
             this.addErrorMessage(I18nUtil.getMessages("action.fail"), e.getMessage());
         }
     }
+    
+    /**
+     * Cargar Facturas electrónicas a partir los urls indicados por el usuario
+     * @return lista de instancias FacturaElectronica
+     */
+    public List<FacturaElectronica>  procesarURLs(){
+        List<FacturaElectronica> result = new ArrayList<>();
+        try {
+            
+            for (FacturaReader fr : FacturaElectronicaURLReader.getFacturasElectronicas(getUrls())){
+                result.add(procesarFactura(fr, SourceType.URL));
+            }
+            this.addSuccessMessage(I18nUtil.getMessages("action.sucessfully"), "Se agregarón " + result.size() + " facturas a fede desde los URLs dados!");
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(FacturaElectronicaHome.class.getName()).log(Level.SEVERE, null, ex);
+            addErrorMessage(I18nUtil.getMessages("action.fail"), I18nUtil.getMessages("xml.read.error.detail"));
+        }
+        closeDialog(null);
+        return result;
+    }
 
+    public void addURLAndProcesarURLs(){
+        addURL();
+        procesarURLs();
+        closeDialog(null);
+    }
+
+    
     @Deprecated
     /**
      * Carga los archivos en lote.
@@ -345,8 +449,34 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
         this.keys = keys;
     }
 
+    public Date getStart() {
+        return start;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
     public List<Group> getGroups() {
         return groupService.findAllByOwner(subject);
+    }
+    
+    public List<Group> getGroupsByCodes() {
+        if (getTags() == null)
+            return getGroups();
+        
+        if (getTags().isEmpty())
+            return getGroups();
+ 
+        return groupService.findByNamedQuery("BussinesEntity.findByCodesAndOwner", tags, subject);
     }
 
     /**
@@ -411,4 +541,5 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
             subjectService.save(subject_.getId(), subject_);
         }
     }
+
 }

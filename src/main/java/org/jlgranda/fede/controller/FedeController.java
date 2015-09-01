@@ -39,6 +39,8 @@ public abstract class FedeController {
     
     Logger  logger = LoggerFactory.getLogger(FedeController.class);
     
+    public static final String KEY_SEPARATOR = ",";
+    
     String outcome = "home";
 
     /**

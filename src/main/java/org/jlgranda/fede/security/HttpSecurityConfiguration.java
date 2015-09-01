@@ -41,7 +41,7 @@ public class HttpSecurityConfiguration {
                     .unprotected()
                 .forPath("/logout")
                     .logout()
-                    .redirectTo("/pages/fede.jsf")
+                    .redirectTo("/pages/fede/dashboard.jsf")
                 .forPath("/home.jsf")
                     .unprotected()
                 .forPath("/signup.jsf")

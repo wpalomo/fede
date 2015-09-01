@@ -47,10 +47,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    #{subject.firstname} <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    #{subject.firstname}<strong>&nbsp;&lt;#{subject.fedeEmail}&gt;</strong> <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="#{facesContext.externalContext.requestContextPath}/pages/profile/profile.jsf"><i class="fa fa-user fa-fw"></i> #{i18n['Profile']}</a>
+                    </li>
+                    <li><a href="#{facesContext.externalContext.requestContextPath}/pages/profile/card.jsf"><i class="fa fa-qrcode fa-fw"></i> #{i18n['FedeCard']}</a>
                     </li>
                     <li><a href="#{facesContext.externalContext.requestContextPath}/pages/profile/setting.jsf"><i class="fa fa-gear fa-fw"></i> #{i18n['Settings']}</a>
                     </li>

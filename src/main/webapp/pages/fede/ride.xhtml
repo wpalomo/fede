@@ -8,10 +8,10 @@
       xmlns:jlgranda="http://jlgranda.com/jsf/facelets">
     <ui:composition template="/WEB-INF/templates/fede.xhtml">
         <ui:param name="sitename" value="#{i18n['Sitename']}" />
-        <ui:param name="title" value="#{i18n['Profile']}" />
+        <ui:param name="title" value="#{i18n['RIDE']}" />
         <ui:define name="params">
             <f:metadata>
-                <f:viewParam name="keys" value="#{facturaElectronicaHome.keys}" />
+                <f:viewParam name="key" value="#{facturaElectronicaHome.keys}" />
             </f:metadata>
         </ui:define>
         <ui:define name="navigation">
@@ -20,17 +20,76 @@
 
                 <ui:include src="/WEB-INF/templates/navigation.xhtml" />
                 <!-- /.navbar-top-links -->
-                <div class="navbar-default sidebar-profile" role="navigation">
+            </nav>
+        </ui:define>
+        <ui:define name="toolbar">
+            <nav class="navbar navbar-default toolbar">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-module" href="#">#{i18n['Invoices']}</a>
+                </div>
+                <p:commandButton ajax="false" 
+                                 value="#{i18n['Import']} #{i18n['FromEmail']}" 
+                                 icon="fa fa-inbox" 
+                                 actionListener="#{facturaElectronicaHome.importarDesdeInbox()}"
+                                 styleClass="btn btn-default navbar-btn">
+                </p:commandButton>
+                <p:commandButton ajax="false" 
+                                 value="#{i18n['Add']} #{i18n['FromFile']}"
+                                 icon="fa fa-upload"
+                                 process="@this"
+                                 actionListener="#{facturaElectronicaHome.mostrarFormularioCargaFacturaElectronica}"
+                                 rendered="#{true}"
+                                 styleClass="btn btn-default navbar-btn">
+                    <p:ajax event="dialogReturn" update="@form"
+                            listener="#{facturaElectronicaHome.handleReturn}">
+                    </p:ajax>
+                </p:commandButton>
+                <p:commandButton ajax="false" 
+                                 value="#{i18n['Add']} #{i18n['FromURL']}"
+                                 icon="fa fa-link "
+                                 process="@this"
+                                 actionListener="#{facturaElectronicaHome.mostrarFormularioDescargaFacturaElectronica}"
+                                 rendered="#{true}"
+                                 styleClass="btn btn-default navbar-btn">
+                    <p:ajax event="dialogReturn" update="@form"
+                            listener="#{facturaElectronicaHome.handleReturn}">
+                    </p:ajax>
+                </p:commandButton>
+                <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf" class="btn btn-default navbar-btn">
+                    <i class="fa fa-dashboard"></i>&nbsp;#{i18n['ShowAllInvoices']}
+                </a>
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <span id="pagination-info" class=""></span>
+                        <button id="pagination-previous" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-left"></i></button>
+                        <button id="pagination-next" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-right"></i></button>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-gear fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="navbar-default sidebar" role="navigation">
                     <!--MENU sidebar--> 
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <span class="side-menu-title">#{i18n['RIDE']}</span>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/ride.jsf"><i class="fa fa-user fa-fw"></i> #{i18n['RIDE']}</a>
-                        </li>
+                        <ui:repeat var="tag" value="#{facturaElectronicaHome.groups}">
+                            <li>
+                                <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{tag.code}">#{tag.name}</a>
+                            </li>
+                        </ui:repeat>
                     </ul>
                 </div>
                 <!-- /.navbar-static-side -->
@@ -52,7 +111,7 @@
                         </div>
                         <div class="panel-body">
                             <!-- Impresion de RIDE -->
-                            <ui:repeat var="facturaElectronica" value="#{facturaElectronicaHome.listarFacturasElectronicasParaLineaTiempo()}">
+                            <ui:repeat var="facturaElectronica" value="#{facturaElectronicaHome.listarFacturasElectronicasPorIds()}">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="row">
