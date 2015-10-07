@@ -6,12 +6,12 @@
     According to CDI spec 1.0 (9.5. Interceptor resolution)
     "An interceptor is bound to a method if: [....]
     The interceptor is enabled in the bean archive containing the bean." -->
-    <alternatives>
+<!--    <alternatives>
         <class>org.apache.deltaspike.jpa.impl.transaction.BeanManagedUserTransactionStrategy</class>       
     </alternatives>
     <decorators/>
     <interceptors>
         <class>org.apache.deltaspike.jpa.impl.transaction.TransactionalInterceptor</class>
         <class>org.apache.deltaspike.security.impl.extension.SecurityInterceptor</class>
-    </interceptors>
+    </interceptors>-->
 </beans>

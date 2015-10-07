@@ -22,7 +22,6 @@ import com.jlgranda.fede.ejb.SubjectService;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
-import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -33,8 +32,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.container.AsyncResponse;
-import javax.ws.rs.container.Suspended;
 import org.jlgranda.fede.model.document.FacturaElectronica;
 
 /**
@@ -42,7 +39,7 @@ import org.jlgranda.fede.model.document.FacturaElectronica;
  * @author jlgranda
  */
 @Stateless
-@Path("factura")
+@Path("facturas")
 public class FacturaElectronicaFacadeREST {
 
     @EJB
@@ -81,7 +78,7 @@ public class FacturaElectronicaFacadeREST {
     }
 
     @GET
-    @Path("lista/{subjectId}/{tag}/{start}/{end}")
+    @Path("{subjectId}/{tag}/{start}/{end}")
     @Produces({"application/xml", "application/json"})
     public List<FacturaElectronica> listar(@PathParam(value = "subjectId") final Long subjectId, 
             @PathParam(value = "tag") final String tag, 

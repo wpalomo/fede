@@ -100,19 +100,6 @@
             </nav>
         </ui:define>
         <ui:define name="content">
-            <div class="row">
-                <div class="col-lg-9">
-                    <h1 class="page-header">#{i18n['Dashboard']}</h1>
-                    <ul>
-    <li ng-repeat="phone in phones">
-      <span>{{phone.name}}</span>
-      <p>{{phone.snippet}}</p>
-    </li>
-  </ul>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
             <ui:repeat var="tag" value="#{facturaElectronicaHome.groupsByCodes}">
                 <div class="row">
                     <div class="col-lg-3">

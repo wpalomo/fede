@@ -110,6 +110,7 @@
                                 <table class="table table-striped table-bordered table-hover" id="resultDataTable">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>#{i18n['ride.no']}</th>
                                             <th>#{i18n['ride.infoFactura.razonSocialComprador']}</th>
                                             <th>#{i18n['ride.infoFactura.importeTotal']}</th>
@@ -173,7 +174,16 @@
             <script>
                 $(document).ready(function () {
                    
-                    $('#resultDataTable').DataTable({
+                    var t = $('#resultDataTable').DataTable({
+                        columnDefs: [ {
+                            orderable: false,
+                            className: 'select-checkbox',
+                            targets:   0
+                        } ],
+                        select: {
+                            style:    'os',
+                            selector: 'td:first-child'
+                        },
                         responsive: true,
                         pagingType: "simple",
                         language: {
@@ -193,23 +203,45 @@
                         processing: true,
                         serverSide: false,
                         ajax: {
-                            "url": "http://localhost:8080/fede/webresources/factura/lista/#{subject.id}/#{facturaElectronicaHome.tags}/#{facturaElectronicaHome.start.time}/#{facturaElectronicaHome.end.time}",
+                            "url": "#{facesContext.externalContext.requestContextPath}/webresources/facturas/#{subject.id}/#{facturaElectronicaHome.tags}/#{facturaElectronicaHome.start.time}/#{facturaElectronicaHome.end.time}",
                             dataSrc: ''
                         },
                         columns: [
+                            { data: null, 
+                              "defaultContent": ""
+                            },
                             { data: "code"},
                             { data: "organization.initials"},
-                            { data: "importeTotal"},
-                            { data: "fechaEmision",
+                            { data: "importeTotal",
                                 "render": function (data) {
+                                    return "$ " + data;
+                                }
+                            },
+                            { data: "fechaEmision",
+                                "render": function ( data, type, row ) {
                                     var date = new Date(data);
-                                    var month = date.getMonth() + 1;
-                                    return (month.length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                                    // If display or filter data is requested, format the date
+                                    if ( type === 'display' || type === 'filter' ) {
+                                        var month = (date.getMonth() + 1);
+                                        return date.getDate() + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
+                                    }
+
+                                    // Otherwise the data type requested (`type`) is type detection or
+                                    // sorting data, for which we want to use the integer, so just return
+                                    // that, unaltered
+                                    return date.getTime();
                                 }
                             }
-                        ]
+                        ],
+                        "order": [[ 4, 'desc' ]]
                     });
+                
+                    t.on( 'click', 'tr', function () {
+                        var obj = t.row( this ).data();
+                        document.location.href = "ride.jsf?key=" + obj.id;
+                    } );
                     
+
                     $("#searchbox").keyup(function() {
                         var dataTable = $('#resultDataTable').dataTable();
                         dataTable.fnFilter(this.value);
