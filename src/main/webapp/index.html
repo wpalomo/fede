@@ -1,7 +1,200 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-<html> 
-<head>
-<meta http-equiv="Refresh" content="0; URL=pages/fede/dashboard.jsf">
-</head>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" ng-app="fedeApp">
+
+    <head>
+        <title>fede&#160;&#187;&#160;dashboard</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Cache-Control" content="must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="Mon, 1 Aug 1999 10:00:00 GMT" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap-social/bootstrap-social.css" />
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/metisMenu/dist/metisMenu.min.css" />
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" />
+
+        <!-- DataTables Responsive CSS -->
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/datatables-responsive/css/dataTables.responsive.css" />
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/datatables-responsive/css/select.dataTables.min.css" />
+
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/dist/css/timeline.css" />
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/dist/css/sb-admin-2.css" />
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/morrisjs/morris.css" />
+        <link rel="stylesheet" href="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/font-awesome/css/font-awesome.min.css"/>
+        <!-- Custom CSS -->
+
+        <!-- Our customizations -->
+        <link rel="stylesheet" href="resources/css/fede.css" />
+        <!--<h:outputScript name="application.js" />-->
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+         <![endif]-->
+    </head>
+    <body>
+        <div id="wrapper" ng-controller="myController">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#{facesContext.externalContext.requestContextPath}/">{{translation.app.name}} {{translation.app.version}}</a>
+                </div>
+                <!-- /.navbar-header -->
+
+                <h:form class="navbar-form navbar-left" role="search">
+                    <div class="input-group custom-search-form">
+                        <input id="searchbox" type="text" class="form-control" placeholder="#{i18n['Search']}"></input>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <!-- /input-group -->
+                </h:form>
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            #{subject.firstname}<strong>&nbsp;&lt;#{subject.fedeEmail}&gt;</strong> <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#{facesContext.externalContext.requestContextPath}/pages/profile/profile.jsf"><i class="fa fa-user fa-fw"></i> #{i18n['Profile']}</a>
+                            </li>
+                            <li><a href="#{facesContext.externalContext.requestContextPath}/pages/profile/card.jsf"><i class="fa fa-qrcode fa-fw"></i> #{i18n['FedeCard']}</a>
+                            </li>
+                            <li><a href="#{facesContext.externalContext.requestContextPath}/pages/profile/setting.jsf"><i class="fa fa-gear fa-fw"></i> #{i18n['Settings']}</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#{facesContext.externalContext.requestContextPath}/logout"><i class="fa fa-sign-out fa-fw"></i> #{i18n['Logout']}</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+            </nav>
+            <div id="form_container">
+                <h:form id="form">
+                    <nav class="navbar navbar-default toolbar">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-module" href="#{facesContext.externalContext.requestContextPath}/pages/fede/dashboard.jsf">#{i18n['Dashboard']}</a>
+                        </div>
+                        <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default navbar-btn">
+                            <i class="fa fa fa-inbox"></i>&nbsp;#{i18n['Import']} #{i18n['FromEmail']}
+                        </a>
+                        <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default navbar-btn">
+                            <i class="fa fa-upload"></i>&nbsp;#{i18n['Add']} #{i18n['FromFile']}
+                        </a>
+                        <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default navbar-btn">
+                            <i class="fa fa-link"></i>&nbsp;#{i18n['Add']} #{i18n['FromURL']}
+                        </a>
+                        <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default navbar-btn">
+                            <i class="fa fa-table"></i>&nbsp;#{i18n['ShowAllInvoices']}
+                        </a>
+
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li>
+                                <label>#{i18n['Start']}&nbsp;</label>
+                                <!--<p:calendar value="#{facturaElectronicaHome.start}" class="input-sm"></p:calendar>-->
+                                <label>#{i18n['End']}&nbsp;</label>
+                                <!--<p:calendar value="#{facturaElectronicaHome.end}" class="input-sm"></p:calendar>-->
+                            </li>
+                            <li>
+                                <span id="pagination-info" class=""></span>
+                                <button id="pagination-previous" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-left"></i></button>
+                                <button id="pagination-next" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-right"></i></button>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-gear fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="navbar-default sidebar" role="navigation">
+                            <!--MENU sidebar--> 
+                            <ul class="nav" id="side-menu">
+<!--                                <ui:repeat var="tag" value="#{facturaElectronicaHome.groups}">-->
+                                    <li>
+                                        <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/dashboard.jsf?tags=#{tag.code}">#{tag.name}</a>
+                                    </li>
+                                <!--</ui:repeat>-->
+                            </ul>
+                        </div>
+                        <!-- /.navbar-static-side -->
+                    </nav>
+                    <!-- /. toolbar -->
+
+                    <div id="page-wrapper">
+                        <div ng-view></div>
+                    </div>
+                    <!-- /#page-wrapper -->
+                </h:form>
+            </div>
+        </div>
+        <!-- /#wrapper -->
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <!---->
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/jquery/dist/jquery.min.js" />-->
+
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/angularjs/angular.js" />
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/angularjs/angular-resource.js" />
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/angularjs/angular-route.js" />
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/angularjs/angular-cookies.js"></script>  
+
+        <!-- AngularJS App Code ==================================================== -->
+        <script src="resources/js/app.js" />
+        <script src="resources/js/translationService.js" />
+        <script src="resources/js/translationController.js" />
+<!--        <script src="resources/js/services.js" />
+        <script src="resources/js/controllers.js" />
+        <script src="resources/js/filters.js" />
+        <script src="resources/js/directives.js" />-->
+
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap/dist/js/bootstrap.min.js" />
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/metisMenu/dist/metisMenu.min.js" />
+
+        <!-- DataTables JavaScript -->
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/datatables/media/js/jquery.dataTables.min.js" />
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js" />
+
+        <!--Morris Charts JavaScript-->
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/raphael/raphael-min.js" />
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/bower_components/morrisjs/morris.min.js" />
+
+        <script src="resources/startbootstrap-sb-admin-2-1.0.7/dist/js/sb-admin-2.js" />
+
+    </body>
 </html>
