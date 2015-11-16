@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7]>      <html lang="en" ng-app="fedeApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="fedeApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="fedeApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="fedeApp" class="no-js"> <!--<![endif]-->
+    <head>
+        <title ng-controller="i18nController">{{translation.app_name}}&#160;&#187;&#160;{{translation.app_dashboard}}</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Cache-Control" content="must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="Mon, 1 Aug 1999 10:00:00 GMT" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-social/bootstrap-social.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" />
+        <link rel="stylesheet" href="bower_components/metisMenu/dist/metisMenu.min.css" />
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" href="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" />
+
+        <!-- DataTables Responsive CSS -->
+        <link rel="stylesheet" href="bower_components/datatables-responsive/css/responsive.dataTables.scss" />
+        <link rel="stylesheet" href="bower_components/datatables-responsive/css/responsive.bootstrap.scss" />
+
+        <link rel="stylesheet" href="startbootstrap-sb-admin-2-1.0.7/dist/css/timeline.css" />
+        <link rel="stylesheet" href="startbootstrap-sb-admin-2-1.0.7/dist/css/sb-admin-2.css" />
+        <!--        <link rel="stylesheet" href="bower_components/morrisjs/morris.css" />-->
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"/>
+        <!-- Custom CSS -->
+
+        <!-- Our customizations -->
+
+        <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+            <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+                <link rel="stylesheet" href="app.css" />
+                <link rel="stylesheet" href="css/fede.css" />
+                <link rel="stylesheet" href="css/sticky-footer-navbar.css" />
+                <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+                <!--<h:outputScript name="application.js" />-->
+
+                <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+                <!--[if lt IE 9]>
+                    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                 <![endif]-->
+                </head>
+                <body>
+                    <div id="wrapper" ng-controller="i18nController">
+                        <!-- Navigation -->
+                        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="#fede">{{translation.app_name}} {{translation.app_version}}</a>
+                            </div>
+                            <!-- /.navbar-header -->
+
+                            <h:form class="navbar-form navbar-left" role="search">
+                                <div class="input-group custom-search-form">
+                                    <input id="searchbox" type="text" class="form-control" placeholder="{{translation.Search}}"></input>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </h:form>
+
+                            <ul class="nav navbar-top-links navbar-right">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        #{subject.firstname}<strong>&nbsp;&lt;#{subject.fedeEmail}&gt;</strong> <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a href="#{facesContext.externalContext.requestContextPath}/pages/profile/profile.jsf"><i class="fa fa-user fa-fw"></i> {{translation.Profile}}</a>
+                                        </li>
+                                        <li><a href="#{facesContext.externalContext.requestContextPath}/pages/profile/card.jsf"><i class="fa fa-qrcode fa-fw"></i> {{translation.FedeCard}}</a>
+                                        </li>
+                                        <li><a href="#{facesContext.externalContext.requestContextPath}/pages/profile/setting.jsf"><i class="fa fa-gear fa-fw"></i> {{translation.Settings}}</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#{facesContext.externalContext.requestContextPath}/logout"><i class="fa fa-sign-out fa-fw"></i> {{translation.Logout}}</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.dropdown-user -->
+                                </li>
+                                <!-- /.dropdown -->
+                            </ul>
+                            <!-- /.navbar-top-links -->
+                        </nav>
+                        <div id="form_container">
+                            <h:form id="form" class="form-horizontal">
+                                <nav class="navbar navbar-default toolbar">
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-module" href="#{facesContext.externalContext.requestContextPath}/pages/fede/dashboard.jsf">{{translation.Dashboard}}</a>
+                                    </div>
+                                    <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default navbar-btn">
+                                        <i class="fa fa fa-inbox"></i>&nbsp;{{translation.Import}} {{translation.FromEmail}}
+                                    </a>
+                                    <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default navbar-btn">
+                                        <i class="fa fa-upload"></i>&nbsp;{{translation.Add}} {{translation.FromFile}}
+                                    </a>
+                                    <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default navbar-btn">
+                                        <i class="fa fa-link"></i>&nbsp;{{translation.Add}} {{translation.FromURL}}
+                                    </a>
+                                    <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default navbar-btn">
+                                        <i class="fa fa-table"></i>&nbsp;{{translation.ShowAllInvoices}}
+                                    </a>
+                                    <ul class="nav navbar-top-links navbar-right">
+                                        <li>
+                                            <div class="form-group navbar-btn">
+                                                <label class="col-sm-2" for="datetimepicker1">{{translation.Start}}&nbsp;</label>
+                                                <div class="col-sm-10">
+                                                    <div class='input-group  date' id='datetimepicker1'>
+                                                    <input type='text' class="form-control input-sm" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-group navbar-btn">
+                                                <label class="col-sm-2" for="datetimepicker2">{{translation.End}}&nbsp;</label>
+                                                <div class="col-sm-10">
+                                                    <div class='input-group  date' id='datetimepicker2'>
+                                                    <input type='text' class="form-control input-sm" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <span id="pagination-info" class=""></span>
+                                            <button id="pagination-previous" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-left"></i></button>
+                                            <button id="pagination-next" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-right"></i></button>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                <i class="fa fa-gear fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-user">
+                                                <li>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="navbar-default sidebar" role="navigation" ng-controller="GroupListCtrl">
+                                        <!--MENU sidebar--> 
+                                        <ul class="nav" id="side-menu">
+                                            <li ng-repeat="group in groups">
+                                                <a href="#inbox/{{group.code}}">{{group.name}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.navbar-static-side -->
+                                </nav>
+                                <!-- /. toolbar -->
+                                <div id="page-wrapper">
+                                    <!--[if lt IE 7]>
+                                        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+                                    <![endif]-->
+                                    <div ng-view></div>
+                                </div>
+                                <!-- /#page-wrapper -->
+                            </h:form>
+                        </div>
+                    </div>
+                    <!-- /#wrapper -->
+
+                    <!-- In production use:
+                    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+                    -->
+                    <script src="bower_components/angular/angular.js"></script>
+                    <script src="bower_components/angular-route/angular-route.js"></script>
+                    <script src="bower_components/angular-resource/angular-resource.js"></script>
+
+                    <!-- ==================== AngularJS App Code ======================= -->
+                    <script src="app.js"></script>
+                    
+                    <script src="components/version/version.js"></script>
+                    <script src="components/version/version-directive.js"></script>
+                    <script src="components/version/interpolate-filter.js"></script>
+
+                    <script src="components/i18n/i18n.js"></script>
+                    <script src="components/i18n/translationController.js"></script>
+                    <script src="components/i18n/translationService.js"></script>
+                    
+                    <script src="components/group/group.js"></script>
+                    <script src="components/group/groupController.js"></script>
+                    <script src="components/group/groupService.js"></script>
+                    
+                    <script src="inbox/inbox.js"></script>
+
+                    <!-- Bootstrap core JavaScript
+                    ================================================== -->
+                    <!-- Placed at the end of the document so the pages load faster -->
+                    <!---->
+                    <script src="bower_components/jquery/dist/jquery.min.js" ></script>
+
+                    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
+                    <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+                    <script src="bower_components/metisMenu/dist/metisMenu.min.js" ></script>
+
+                    <!-- DataTables JavaScript -->
+                    <script src="bower_components/datatables/media/js/jquery.dataTables.min.js" ></script>
+                    <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js" ></script>
+
+                    <!--Morris Charts JavaScript-->
+                    <!--        <script src="bower_components/raphael/raphael-min.js" />
+                            <script src="bower_components/morrisjs/morris.min.js" />-->
+
+                    <script src="startbootstrap-sb-admin-2-1.0.7/dist/js/sb-admin-2.js" ></script>
+                    <script type="text/javascript">
+                                            $(function () {
+                                                $('#datetimepicker1').datepicker({
+                                                    locale: 'es'
+                                                });
+                                                $('#datetimepicker2').datepicker({
+                                                    locale: 'es',
+                                                    useCurrent: false //Important! See issue #1075
+                                                });
+                                                $("#datetimepicker1").on("dp.change", function (e) {
+                                                    $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+                                                });
+                                                $("#datetimepicker2").on("dp.change", function (e) {
+                                                    $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+                                                });
+                                            });
+                    </script>
+                </body>
+                </html>

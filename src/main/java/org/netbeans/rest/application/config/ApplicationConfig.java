@@ -42,6 +42,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(org.jlgranda.fede.service.FacturaElectronicaFacadeREST.class);
+        resources.add(org.jlgranda.fede.service.GroupFacadeREST.class);
     }
     
 }

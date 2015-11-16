@@ -83,9 +83,9 @@ public class GroupHome extends FedeController implements Serializable {
         String attrs = null;
         for (String key : props.keySet()){
             value = props.get(key);
-            attrs = value.substring(value.indexOf("{"), value.indexOf("}"));
-            icon = attrs.split(",")[0];
-            color = attrs.split(",")[1];
+            attrs = value.substring(value.indexOf("{") + 1, value.indexOf("}"));
+            color = attrs.split(",")[0];
+            icon = attrs.split(",")[1];
             value = value.substring(0, (value.indexOf("{") - 1));
             group = groupService.createInstance();
             group.setCode(key);

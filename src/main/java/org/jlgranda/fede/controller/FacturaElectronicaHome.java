@@ -53,7 +53,6 @@ import com.jlgranda.fede.ejb.url.reader.FacturaElectronicaURLReader;
 import java.util.Collections;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
-import javax.faces.validator.Validator;
 import javax.inject.Inject;
 import org.jlgranda.fede.cdi.LoggedIn;
 import org.jpapi.model.SourceType;
@@ -122,9 +121,17 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     
     @PostConstruct
     private void init() {
-        int amount = Integer.valueOf(settingService.findByName(SettingNames.DASHBOARD_RANGE).getValue());
+        int amount = 0;
+        try {
+            amount = Integer.valueOf(settingService.findByName(SettingNames.DASHBOARD_RANGE).getValue());
+        } catch (java.lang.NumberFormatException nfe){
+            nfe.printStackTrace();
+            amount = 30;
+        }
+        
         setEnd(Dates.now());
         setStart(Dates.addDays(getEnd(), -1 * amount));
+        
     }
 
     public List<UploadedFile> getUploadedFiles() {

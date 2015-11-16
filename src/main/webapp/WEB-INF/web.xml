@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Use this definition if using a Java EE 6 container
      This also stops Eclipse from complaining that 3.0 is not a valid version    -->
-
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation=" http://java.sun.com/xml/ns/javaee
-      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://java.sun.com/xml/ns/javaee       http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>fede beta</display-name>
-    
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
@@ -17,15 +11,15 @@
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>
     </context-param>
-    <mime-mapping>        
+    <mime-mapping>
         <extension>eot</extension>
         <mime-type>font/opentype</mime-type>
     </mime-mapping>
-    <mime-mapping>        
+    <mime-mapping>
         <extension>woff</extension>
         <mime-type>application/x-font-woff</mime-type>
     </mime-mapping>
-    <mime-mapping>        
+    <mime-mapping>
         <extension>ttf</extension>
         <mime-type>application/octet-stream</mime-type>
     </mime-mapping>
@@ -49,25 +43,18 @@
         <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
         <param-value>/WEB-INF/jlgranda.taglib.xml</param-value>
     </context-param>
-    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
-  
-    <context-param>  
-        <param-name>primefaces.THEME</param-name>  
-        <param-value>bootstrap</param-value>  
-    </context-param>  
-
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>bootstrap</param-value>
+    </context-param>
     <context-param>
         <param-name>facelets.DEVELOPMENT</param-name>
         <param-value>true</param-value>
     </context-param>
-    
-    <context-param>   
-	<param-name>primefaces.UPLOADER</param-name>   
-	<param-value>auto</param-value>
+    <context-param>
+        <param-name>primefaces.UPLOADER</param-name>
+        <param-value>auto</param-value>
     </context-param>
-        
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -87,18 +74,15 @@
         <param-name>facelets.DEVELOPMENT</param-name>
         <param-value>true</param-value>
     </context-param>
-   
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-
     <!--Database-->
     <persistence-unit-ref>
         <persistence-unit-ref-name>fede/pu</persistence-unit-ref-name>
         <persistence-unit-name>fede</persistence-unit-name>
     </persistence-unit-ref>
-   
     <!--Facebook signin-->
     <servlet>
         <servlet-name>fb-signin</servlet-name>
@@ -116,7 +100,6 @@
         <servlet-name>fb-post</servlet-name>
         <servlet-class>org.jlgranda.fede.servlet.facebook.signin.PostServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>fb-signin</servlet-name>
         <url-pattern>/fb-signin</url-pattern>
@@ -133,17 +116,34 @@
         <servlet-name>fb-post</servlet-name>
         <url-pattern>/fb-post</url-pattern>
     </servlet-mapping>
-  
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
     <error-page>
         <exception-type>facebook4j.FacebookException</exception-type>
         <location>/error.jsf</location>
     </error-page>
-
     <error-page>
         <error-code>500</error-code>
         <location>/error.jsf</location>
     </error-page>
-    
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
@@ -152,5 +152,4 @@
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-
 </web-app>
