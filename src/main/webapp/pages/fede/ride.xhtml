@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:jlgranda="http://jlgranda.com/jsf/facelets">
-    <ui:composition template="/WEB-INF/templates/fede.xhtml">
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
         <ui:param name="sitename" value="#{i18n['Sitename']}" />
         <ui:param name="title" value="#{i18n['RIDE']}" />
         <ui:define name="params">
@@ -32,45 +32,70 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-module" href="#">#{i18n['Invoices']}</a>
+                    <a class="navbar-module" href="#{facesContext.externalContext.requestContextPath}/">#{i18n['Invoices']}</a>
                 </div>
-                <p:commandButton ajax="false" 
-                                 value="#{i18n['Import']} #{i18n['FromEmail']}" 
-                                 icon="fa fa-inbox" 
-                                 actionListener="#{facturaElectronicaHome.importarDesdeInbox()}"
-                                 styleClass="btn btn-default navbar-btn">
-                </p:commandButton>
-                <p:commandButton ajax="false" 
-                                 value="#{i18n['Add']} #{i18n['FromFile']}"
-                                 icon="fa fa-upload"
-                                 process="@this"
-                                 actionListener="#{facturaElectronicaHome.mostrarFormularioCargaFacturaElectronica}"
-                                 rendered="#{true}"
-                                 styleClass="btn btn-default navbar-btn">
-                    <p:ajax event="dialogReturn" update="@form"
-                            listener="#{facturaElectronicaHome.handleReturn}">
-                    </p:ajax>
-                </p:commandButton>
-                <p:commandButton ajax="false" 
-                                 value="#{i18n['Add']} #{i18n['FromURL']}"
-                                 icon="fa fa-link "
-                                 process="@this"
-                                 actionListener="#{facturaElectronicaHome.mostrarFormularioDescargaFacturaElectronica}"
-                                 rendered="#{true}"
-                                 styleClass="btn btn-default navbar-btn">
-                    <p:ajax event="dialogReturn" update="@form"
-                            listener="#{facturaElectronicaHome.handleReturn}">
-                    </p:ajax>
-                </p:commandButton>
-                <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf" class="btn btn-default navbar-btn">
-                    <i class="fa fa-dashboard"></i>&nbsp;#{i18n['ShowAllInvoices']}
-                </a>
-
+                <div class="btn-group navbar-btn" role="group" aria-label="...">
+                     <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/inbox.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                </div>
+                <div class="btn-group navbar-btn" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            #{i18n['Import']}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <p:commandLink actionListener="#{facturaElectronicaHome.importarDesdeInbox()}" ajax="false"
+                                               styleClass="">
+                                    <i class="fa fa-inbox"></i>&nbsp;<h:outputText value="#{i18n['Import']} #{i18n['FromEmail']}" />
+                                </p:commandLink>
+                            </li>
+                            <li>
+                                <p:commandLink actionListener="#{facturaElectronicaHome.mostrarFormularioCargaFacturaElectronica()}" ajax="false"
+                                               styleClass="">
+                                    <i class="fa fa-upload">&nbsp;</i><h:outputText value="#{i18n['Add']} #{i18n['FromFile']}" />
+                                    <p:ajax event="dialogReturn" update="@form"
+                                            listener="#{facturaElectronicaHome.handleReturn}">
+                                    </p:ajax>
+                                </p:commandLink>
+                            </li>
+                            <li>
+                                <p:commandLink actionListener="#{facturaElectronicaHome.mostrarFormularioDescargaFacturaElectronica()}" ajax="false"
+                                               styleClass="">
+                                    <i class="fa fa-link"></i>&nbsp;<h:outputText value="#{i18n['Add']} #{i18n['FromURL']}" />
+                                    <p:ajax event="dialogReturn" update="@form"
+                                            listener="#{facturaElectronicaHome.handleReturn}">
+                                    </p:ajax>
+                                </p:commandLink>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/dashboard.jsf?tags=#{facturaElectronicaHome.tags}" class="btn btn-default">
+                        <i class="fa fa-dashboard"></i>&nbsp;#{i18n['Dashboard']}
+                    </a>
+                </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
+                        <label>#{i18n['Start']}&nbsp;</label>
+                        <p:calendar value="#{facturaElectronicaHome.start}" class="input-sm">
+                            <p:ajax event="dateSelect" oncomplete="form.submit();"/>
+                        </p:calendar>
+                        <label>#{i18n['End']}&nbsp;</label>
+                        <p:calendar value="#{facturaElectronicaHome.end}" class="input-sm">
+                            <p:ajax event="dateSelect" oncomplete="form.submit();"/>
+                        </p:calendar>
+                    </li>
+                    <li>
                         <span id="pagination-info" class=""></span>
-                        <button id="pagination-previous" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-left"></i></button>
-                        <button id="pagination-next" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-right"></i></button>
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button id="pagination-previous" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-left"></i></button>
+                            <button id="pagination-next" type="button" class="btn btn-default navbar-btn "><i class="fa fa-angle-right"></i></button>
+                        </div>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -87,7 +112,7 @@
                     <ul class="nav" id="side-menu">
                         <ui:repeat var="tag" value="#{facturaElectronicaHome.groups}">
                             <li>
-                                <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/fede.jsf?tags=#{tag.code}">#{tag.name}</a>
+                                <a href="#{facesContext.externalContext.requestContextPath}/pages/fede/inbox.jsf?tags=#{tag.code}">#{tag.name}</a>
                             </li>
                         </ui:repeat>
                     </ul>
@@ -95,6 +120,7 @@
                 <!-- /.navbar-static-side -->
             </nav>
         </ui:define>
+        <!--//toolbar-->
         
         <ui:define name="content">
             <div class="row">
@@ -282,6 +308,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="ride-separator"></div>
                             <!-- ./Impresion de RIDE -->
                             </ui:repeat>
                         </div>

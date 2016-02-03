@@ -42,22 +42,12 @@ public class FedeAPI implements Serializable {
     
     Logger  logger = LoggerFactory.getLogger(FedeAPI.class);
     
-    @EJB
-    private SettingService settingService;
-    
     public Factura readFactura(FacturaElectronica facturaElectronica){
         return readFactura(facturaElectronica.getContenido());
     }
     
     public Factura readFactura(String xml){
         return FacturaUtil.read(xml);
-    }
-    
-    public String getSettingValue(String name, String defaultValue){
-        Setting s = settingService.findByName(name);
-        if (s == null)
-            return defaultValue;
-        return s.getValue();
     }
     
     public String translate(String key, Enum e){

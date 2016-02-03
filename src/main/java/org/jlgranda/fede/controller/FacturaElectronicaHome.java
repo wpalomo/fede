@@ -43,22 +43,38 @@ import org.slf4j.LoggerFactory;
 import org.jlgranda.fede.sri.jaxb.factura.v110.Factura;
 import org.jpapi.model.CodeType;
 import org.jpapi.model.Group;
-import org.jpapi.model.management.Organization;
 import org.jpapi.model.profile.Subject;
 import org.jpapi.util.Dates;
 import org.primefaces.event.FileUploadEvent;
 import com.jlgranda.fede.SettingNames;
 import com.jlgranda.fede.ejb.GroupService;
 import com.jlgranda.fede.ejb.url.reader.FacturaElectronicaURLReader;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.apache.commons.io.IOUtils;
 import org.jlgranda.fede.cdi.LoggedIn;
+import org.jlgranda.fede.ui.model.LazyFacturaElectronicaDataModel;
+import org.jpapi.model.BussinesEntity;
 import org.jpapi.model.SourceType;
 import org.jpapi.util.I18nUtil;
 import org.jpapi.util.Lists;
 import org.jpapi.util.Strings;
+import org.primefaces.component.api.UIColumn;
+import org.primefaces.event.UnselectEvent;
+import org.primefaces.model.SortMeta;
+import org.primefaces.model.SortOrder;
 
 /**
  *
@@ -75,9 +91,11 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     @Inject
     @LoggedIn
     private Subject subject;
-
-    @EJB
-    private SettingService settingService;
+            
+    //@EJB
+    //private SettingService settingService;
+    @Inject
+    private SettingHome settingHome;
 
     @EJB
     private GroupService groupService;
@@ -115,6 +133,16 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     private List<String> urls = new ArrayList<>();
 
     private List<UploadedFile> uploadedFiles = Collections.synchronizedList(new ArrayList<UploadedFile>());
+    
+    private LazyFacturaElectronicaDataModel lazyDataModel; 
+    
+    private List<BussinesEntity> selectedBussinesEntities;
+    
+    private Map<String, String> selectedTriStateGroups = new LinkedHashMap<String, String>();
+    
+    private String keyword;
+    
+    private List<Group> groups = new ArrayList<>();
 
     public FacturaElectronicaHome() {
     }
@@ -123,7 +151,8 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     private void init() {
         int amount = 0;
         try {
-            amount = Integer.valueOf(settingService.findByName(SettingNames.DASHBOARD_RANGE).getValue());
+            //amount = Integer.valueOf(settingService.findByName(SettingNames.DASHBOARD_RANGE).getValue());
+            amount = Integer.valueOf(settingHome.getValue(SettingNames.DASHBOARD_RANGE, "360"));
         } catch (java.lang.NumberFormatException nfe){
             nfe.printStackTrace();
             amount = 30;
@@ -131,7 +160,22 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
         
         setEnd(Dates.now());
         setStart(Dates.addDays(getEnd(), -1 * amount));
-        
+    }
+
+    public List<BussinesEntity> getSelectedBussinesEntities() {
+        return selectedBussinesEntities;
+    }
+
+    public void setSelectedBussinesEntities(List<BussinesEntity> selectedBussinesEntities) {
+        this.selectedBussinesEntities = selectedBussinesEntities;
+    }
+
+    public Map<String, String> getSelectedTriStateGroups() {
+        return selectedTriStateGroups;
+    }
+
+    public void setSelectedTriStateGroups(Map<String, String> selectedTriStateGroups) {
+        this.selectedTriStateGroups = selectedTriStateGroups;
     }
 
     public List<UploadedFile> getUploadedFiles() {
@@ -140,6 +184,18 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
 
     public void setUploadedFiles(List<UploadedFile> uploadedFiles) {
         this.uploadedFiles = uploadedFiles;
+    }
+
+    public LazyFacturaElectronicaDataModel getLazyDataModel() {
+        
+
+        filter();
+    
+        return lazyDataModel;
+    }
+
+    public void setLazyDataModel(LazyFacturaElectronicaDataModel lazyDataModel) {
+        this.lazyDataModel = lazyDataModel;
     }
 
     public String getUrl() {
@@ -152,6 +208,14 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
 
     public List<String> getUrls() {
         return urls;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public void setUrls(List<String> urls) {
@@ -170,50 +234,11 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     public void removeURL(String url){
         this.urls.remove(url);
     }
-    
-    /**
-     * Obtener todas las facturas disponibles en el sistema
-     *
-     * @return
-     */
-    public List<FacturaElectronica> listarFacturasElectronicasParaLineaTiempo() {
-        return facturaElectronicaService.listarFacturasElectronicas(Strings.toInt(settingService.findByName("fede.dashboard.timeline.length").getValue()));
-    }
 
-    /**
-     * Obtener todas las facturas disponibles en el sistema para las etiquetas
-     * definidas en el controlador Por defecto carga la lista de facturas que
-     * pertenecen a DefaultGroup
-     *
-     * @return la lista de facturas electrónicas que pertenecen a las etiquetas
-     * indicadas en el controlador
-     */
-    public List<FacturaElectronica> listarFacturasElectronicas() {
-        List<FacturaElectronica> result = new ArrayList<>();
-        if (getTags() == null || getTags().isEmpty()) {
-            setTags(getDefaultGroup().getCode());
-        }
-        for (String tag : Lists.toList(getTags())) {
-            result.addAll(listarFacturasElectronicas(tag));
-        }
-        return result;
-    }
-
-    /**
-     * Obtener todas las facturas disponibles en el sistema para el usuario
-     * actual
-     *
-     * @param tag agrupación de facturas
-     * @return lista de facturas electrónicas
-     */
-    public List<FacturaElectronica> listarFacturasElectronicas(String tag) {
-        return facturaElectronicaService.listarFacturasElectronicas(tag, subject, getStart(), getEnd());
-    }
-    
     /**
      * Obtener todas las facturas disponibles en el sistema para el usuario
      * actual dados los ids de la instancia actual <tt>FacturaElectronicaHome</tt>
-     *
+     * Se usa para mostrar los RIDE
      * @return lista de facturas electrónicas
      */
     public List<FacturaElectronica> listarFacturasElectronicasPorIds() {
@@ -222,7 +247,7 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
         
         List<Long> ids = new ArrayList<>();
         for (String s : getKeys().split(KEY_SEPARATOR)){
-            ids.add(Long.valueOf(s));
+            ids.add(Long.valueOf(s.trim()));
         }
         return facturaElectronicaService.findByNamedQuery("BussinesEntity.findByIds", ids);
     }
@@ -240,13 +265,27 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
         return total;
     }
 
-    public void mostrarFormularioCargaFacturaElectronica() {
-        super.openDialog(SettingNames.POPUP_SUBIR_FACTURA_ELECTRONICA, 800, 600, true);
+    public boolean mostrarFormularioCargaFacturaElectronica() {
+        String width = settingHome.getValue(SettingNames.POPUP_WIDTH, "550");
+        String height = settingHome.getValue(SettingNames.POPUP_HEIGHT, "480");
+        super.openDialog(SettingNames.POPUP_SUBIR_FACTURA_ELECTRONICA, width, height, true);
+        return true;
     }
     
-    public void mostrarFormularioDescargaFacturaElectronica() {
-        super.openDialog(SettingNames.POPUP_DESCARGAR_FACTURA_ELECTRONICA, 800, 600, true);
+    public boolean mostrarFormularioDescargaFacturaElectronica() {
+        String width = settingHome.getValue(SettingNames.POPUP_WIDTH, "550");
+        String height = settingHome.getValue(SettingNames.POPUP_HEIGHT, "480");
+        super.openDialog(SettingNames.POPUP_SUBIR_FACTURA_ELECTRONICA, width, height, true);
+        return true;
     }
+    
+    public boolean mostrarFormularioNuevaEtiqueta() {
+        String width = settingHome.getValue(SettingNames.POPUP_SMALL_WIDTH, "400");
+        String height = settingHome.getValue(SettingNames.POPUP_SMALL_HEIGHT, "240");
+        super.openDialog(SettingNames.POPUP_NUEVA_ETIQUETA, width, height, true);
+        return true;
+    }
+    
 
     public List<FacturaElectronica> importarDesdeInbox() {
         List<FacturaElectronica> result = new ArrayList<>();
@@ -256,7 +295,7 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
             return result;
         }
         try {
-            for (FacturaReader fr : facturaElectronicaMailReader.getFacturasElectronicas(subject)) {
+            for (FacturaReader fr : facturaElectronicaMailReader.read(subject, "inbox")) {
                 try {
                     result.add(procesarFactura(fr, SourceType.EMAIL));
                 } catch (FacturaXMLReadException ex) {
@@ -279,16 +318,54 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     }
 
     public void procesarUploadFile(UploadedFile file) {
+        
+        if (file == null){
+            this.addErrorMessage(I18nUtil.getMessages("action.fail"), I18nUtil.getMessages("fede.file.null"));
+            return;
+        }
+
         if (subject == null) {
             this.addErrorMessage(I18nUtil.getMessages("action.fail"), I18nUtil.getMessages("fede.subject.null"));
             return;
         }
-
+        String xml = null;
         try {
-            String xml = new String(file.getContents());
-            procesarFactura(FacturaUtil.read(xml), xml, file.getFileName(), SourceType.FILE);
-            this.addSuccessMessage(I18nUtil.getMessages("action.sucessfully"), "El archivo " + file.getFileName() + " ahora esta seguro en fede!");
+            if (file.getFileName().endsWith(".xml")){
+                byte[] content = IOUtils.toByteArray(file.getInputstream());
+                 xml = new String(content);
+                procesarFactura(FacturaUtil.read(xml), xml, file.getFileName(), SourceType.FILE);
+                this.addSuccessMessage(I18nUtil.getMessages("action.sucessfully"), "Su factura electrónica " + file.getFileName() + " ahora empieza a generar valor para ud!");
+                IOUtils.closeQuietly(file.getInputstream());
+            } else if (file.getFileName().endsWith(".zip")){
+                ZipInputStream zis = new ZipInputStream(file.getInputstream());
+                try {
+                    ZipEntry entry = null;
+                    ByteArrayOutputStream fout = null;
+                    while ((entry = zis.getNextEntry()) != null) {
+                        if (entry.getName().endsWith(".xml")) {
+                            //logger.debug("Unzipping {}", entry.getFilename());
+                            fout = new ByteArrayOutputStream();
+                            for (int c = zis.read(); c != -1; c = zis.read()) {
+                                fout.write(c);
+                            }
+
+                            xml = new String(fout.toByteArray(), Charset.defaultCharset());
+                            procesarFactura(FacturaUtil.read(xml), xml, file.getFileName(), SourceType.FILE);
+                            this.addSuccessMessage(I18nUtil.getMessages("action.sucessfully"), "Su factura electrónica " + entry.getName() + " ahora empieza a generar valor para ud!");
+                            fout.close();
+                        }
+                        zis.closeEntry();
+                    }
+                    zis.close();
+
+                } finally {
+                    IOUtils.closeQuietly(file.getInputstream());
+                    IOUtils.closeQuietly(zis);
+                }
+            }
+           
         } catch (Exception e) {
+            e.printStackTrace();
             this.addErrorMessage(I18nUtil.getMessages("action.fail"), e.getMessage());
         }
     }
@@ -317,27 +394,6 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
         addURL();
         procesarURLs();
         closeDialog(null);
-    }
-
-    
-    @Deprecated
-    /**
-     * Carga los archivos en lote.
-     */
-    public void procesarUploadFiles() {
-        boolean errors = false;
-        for (UploadedFile file : this.uploadedFiles) {
-            try {
-                String xml = new String(file.getContents());
-                procesarFactura(FacturaUtil.read(xml), xml, file.getFileName(), SourceType.FILE);
-            } catch (Exception e) {
-                errors = true;
-                this.addErrorMessage(I18nUtil.getMessages("action.fail"), "No fue posible cargar el archivo " + file.getFileName() + " Error: " + e.getMessage() + ". Intente nuevamente!");
-            }
-        }
-        if (!errors) {
-            closeDialog(null);
-        }
     }
 
     private FacturaElectronica procesarFactura(Factura factura, String xml, String filename, SourceType sourceType) throws FacturaXMLReadException {
@@ -379,30 +435,31 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
             instancia.setMoneda(factura.getInfoFactura().getMoneda());
 
             instancia.setClaveAcceso(factura.getInfoTributaria().getClaveAcceso());
-            instancia.setFechaAutorizacion(Dates.toDate(FacturaUtil.read(xml, settingService.findByName(SettingNames.TAG_FECHA_AUTORIZACION).getValue())));
-            instancia.setNumeroAutorizacion(FacturaUtil.read(xml, settingService.findByName(SettingNames.TAG_FECHA_AUTORIZACION).getValue()));
+            String tag = settingHome.getValue(SettingNames.TAG_FECHA_AUTORIZACION, "<fechaAutorizacion></fechaAutorizacion>");
+            instancia.setFechaAutorizacion(Dates.toDate(FacturaUtil.read(xml, tag)));
+            instancia.setNumeroAutorizacion(FacturaUtil.read(xml, tag));
 
             instancia.setSourceType(sourceType); //El tipo de importación realizado
 
-            logger.info("Organizacion {}, CodeType {}", factura.getInfoTributaria().getRuc(), CodeType.RUC);
-
-            Organization organizacion = null;
-            if ((organizacion = organizacionService.findUniqueByNamedQuery("BussinesEntity.findByCodeAndCodeType", factura.getInfoTributaria().getRuc(), CodeType.RUC)) == null) {
-                organizacion = organizacionService.createInstance();
-                organizacion.setCode(factura.getInfoTributaria().getRuc());
-                organizacion.setName(factura.getInfoTributaria().getRazonSocial());
-                organizacion.setInitials((factura.getInfoTributaria().getNombreComercial() != null && !factura.getInfoTributaria().getNombreComercial().isEmpty()) ? factura.getInfoTributaria().getNombreComercial() : factura.getInfoTributaria().getRazonSocial());
+            logger.info("Author {}, CodeType {}", factura.getInfoTributaria().getRuc(), CodeType.RUC);
+            Subject author = null;
+            if ((author = subjectService.findUniqueByNamedQuery("BussinesEntity.findByCodeAndCodeType", factura.getInfoTributaria().getRuc(), CodeType.RUC)) == null) {
+                author = subjectService.createInstance();
+                author.setCode(factura.getInfoTributaria().getRuc());
+                author.setName(factura.getInfoTributaria().getRazonSocial());
+                author.setInitials((factura.getInfoTributaria().getNombreComercial() != null && !factura.getInfoTributaria().getNombreComercial().isEmpty()) ? factura.getInfoTributaria().getNombreComercial() : factura.getInfoTributaria().getRazonSocial());
                 //Todo guardar la dirección como html o xml para uso posterior
-                organizacion.setDescription(factura.getInfoTributaria().getDirMatriz());
-                organizacion.setOrganizationType(Organization.Type.PRIVATE);
-                organizacion.setCodeType(CodeType.RUC);
-                organizacion.setRuc(factura.getInfoTributaria().getRuc());
-                organizacion.setNumeroContribuyenteEspecial(factura.getInfoFactura().getContribuyenteEspecial());
+                author.setDescription(factura.getInfoTributaria().getDirMatriz());
+                author.setSubjectType(Subject.Type.PRIVATE);
+                author.setCodeType(CodeType.RUC);
+                author.setRuc(factura.getInfoTributaria().getRuc());
+                author.setNumeroContribuyenteEspecial(factura.getInfoFactura().getContribuyenteEspecial());
 
-                organizacionService.save(organizacion);
+                subjectService.save(author);
+            
             }
 
-            instancia.setOrganization(organizacion);
+            //instancia.setOrganization(organizacion);
             instancia.setOwner(subject);
 
             instancia = facturaElectronicaService.save(instancia);
@@ -431,7 +488,7 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
 
     public Group getDefaultGroup() {
         if (defaultGroup == null) {
-            return groupService.findByCode(settingService.findByName(SettingNames.DEFAULT_INVOICES_GROUP_NAME).getValue());
+            return groupService.findByCode(settingHome.getValue(SettingNames.DEFAULT_INVOICES_GROUP_NAME, "fede"));
         }
         return defaultGroup;
     }
@@ -441,6 +498,10 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     }
 
     public String getTags() {
+        
+        if (this.tags == null || tags.isEmpty()) {
+            setTags(getDefaultGroup().getCode());
+        }
         return tags;
     }
 
@@ -454,6 +515,13 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
 
     public void setKeys(String keys) {
         this.keys = keys;
+    }
+    
+    public String getSelectedKeys(){
+        String _keys = "";
+        if (getSelectedBussinesEntities() != null && !getSelectedBussinesEntities().isEmpty())
+            _keys = Lists.toString(getSelectedBussinesEntities());
+        return _keys;
     }
 
     public Date getStart() {
@@ -473,7 +541,27 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     }
 
     public List<Group> getGroups() {
-        return groupService.findAllByOwner(subject);
+        if (groups.isEmpty()){
+            groups = groupService.findAllByOwner(subject);
+        }
+        
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    
+    
+    public List<String> getGroupNames() {
+        List<String> names = new ArrayList<>();
+                
+        for (Group g : getGroups()){
+            names.add(g.getName());
+        }
+        
+        return names;
     }
     
     public List<Group> getGroupsByCodes() {
@@ -485,6 +573,29 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
  
         return groupService.findByNamedQuery("BussinesEntity.findByCodesAndOwner", tags, subject);
     }
+    
+    
+    public void filter() {
+        if (lazyDataModel == null ){
+            lazyDataModel = new LazyFacturaElectronicaDataModel(facturaElectronicaService);
+        }
+        
+        lazyDataModel.setOwner(subject);
+        lazyDataModel.setStart(getStart());
+        lazyDataModel.setEnd(getEnd());
+            
+        if (getKeyword()!= null && getKeyword().startsWith("label:")){
+            String parts[] = getKeyword().split(":");
+            if (parts.length > 1){
+                lazyDataModel.setTags(parts[1]);
+            }
+            lazyDataModel.setFilterValue(null);//No buscar por keyword
+        } else {
+            lazyDataModel.setTags(getTags());
+            lazyDataModel.setFilterValue(getKeyword());
+        }
+    }
+
 
     /**
      * Encuentra la instancia Subject para los parámetros dados. Se actualiza al
@@ -494,6 +605,7 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
      * @param codeType
      * @return
      */
+    @Deprecated
     private Subject findSubject(String identificacionComprador, CodeType codeType) {
         String cedula = identificacionComprador.substring(0, identificacionComprador.length() > 10 ? 10 : identificacionComprador.length());
         Subject subject_ = null;
@@ -547,6 +659,67 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
         if (changed){
             subjectService.save(subject_.getId(), subject_);
         }
+    }
+    
+    public void applySelectedGroups() {
+        String status = "";
+        Group group = null;
+        //FacturaElectronica fe = null;
+        for (BussinesEntity fe : getSelectedBussinesEntities()) {
+            //fe = facturaElectronicaService.find(be.getId());
+            for (String key : selectedTriStateGroups.keySet()) {
+                group = findGroup(key);
+                if (key.equalsIgnoreCase(group.getName())) {
+                    group = groupService.findByCode(group.getCode()); //Attached entity
+                    status = selectedTriStateGroups.get(key);
+                    if ("0".equalsIgnoreCase(status)) {
+                        if (fe.containsGroup(key)) {
+                            fe.remove(group);
+                        }
+                    } else if ("1".equalsIgnoreCase(status)) {
+                        if (!fe.containsGroup(key)) {
+                            fe.add(group);
+                        }
+                    } else if ("2".equalsIgnoreCase(status)) {
+                        if (!fe.containsGroup(key)) {
+                            fe.add(group);
+                        }
+                    }
+                }
+            }
+            facturaElectronicaService.save(fe.getId(), (FacturaElectronica) fe);
+        }
+
+        this.addSuccessMessage("Las facturas se agregaron a " + selectedTriStateGroups.keySet(), "");
+
+    }
+    
+    public void onRowSelect(SelectEvent event) {
+        try {
+            //Redireccionar a RIDE de objeto seleccionado
+            if (event != null && event.getObject() != null){
+                redirectTo("/pages/fede/ride.jsf?key=" + ((BussinesEntity) event.getObject()).getId());
+            }
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(FacturaElectronicaHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void onRowUnselect(UnselectEvent event) {
+        FacesMessage msg = new FacesMessage(I18nUtil.getMessages("BussinesEntity") + " " + I18nUtil.getMessages("common.unselected"), ((BussinesEntity) event.getObject()).getName());
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        this.selectedBussinesEntities.remove((FacturaElectronica) event.getObject());
+         logger.info(I18nUtil.getMessages("BussinesEntity") + " " + I18nUtil.getMessages("common.unselected"), ((BussinesEntity) event.getObject()).getName());
+    }
+
+    private Group findGroup(String key) {
+        for (Group g: getGroups()){
+            if (g.getName().equalsIgnoreCase(key)){
+                return g;
+            }
+        }
+        return new Group("null", "null");
     }
 
 }

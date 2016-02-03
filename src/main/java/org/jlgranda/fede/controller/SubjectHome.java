@@ -199,6 +199,7 @@ public class SubjectHome extends FedeController implements Serializable {
                 
                 //Finalmente crear en fede
                 signup.setUuid(user.getId());
+                signup.setSubjectType(Subject.Type.NATURAL);
                 subjectService.save(signup);
                 
                 //Crear grupos por defecto para el subject

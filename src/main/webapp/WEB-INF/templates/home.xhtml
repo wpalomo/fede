@@ -37,6 +37,7 @@
 
         <!-- Our customizations -->
         <h:outputStylesheet name="/css/fede.css" />
+        <h:outputStylesheet name="/css/business-frontpage.css" />
         <!--<h:outputScript name="application.js" />-->
 
         <ui:insert name="head"></ui:insert>
@@ -51,14 +52,18 @@
     <ui:insert name="params">
     </ui:insert>
     <body>
-        <div id="wrapper">
-            <ui:insert name="navigation"></ui:insert>
+        <ui:insert name="navigation">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+                <ui:include src="/WEB-INF/templates/header_signin.xhtml" />
+                <!-- /.navbar-top-links -->
+            </nav>
+        </ui:insert>
+        <div class="container">
             <div id="form_container">
                 <h:form id="form">
-                    <ui:insert name="toolbar"></ui:insert>
-                    <!-- /. toolbar -->
-                    
-                    <div id="page-wrapper">
+                    <div id="container">
                         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                         <ui:insert name="content"></ui:insert>
                     </div>
@@ -66,7 +71,22 @@
                 </h:form>
             </div>
         </div>
-        <!-- /#wrapper -->
+
+        <!-- Page Content -->
+        <div class="container">
+
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>#{i18n['Copyright']} &copy; #{i18n['app.name']}</p>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </footer>
+
+        </div>
+    <!-- /.container -->
 
 
         <!-- Bootstrap core JavaScript

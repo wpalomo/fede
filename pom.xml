@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <primefaces.version>5.2</primefaces.version>
+        <primefaces.version>5.3</primefaces.version>
         <primefaces.theme.version>1.0.10</primefaces.theme.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
         <!-- WildFly dependency versions -->
@@ -218,9 +218,14 @@
         <dependency>  
             <groupId>org.primefaces</groupId>  
             <artifactId>primefaces</artifactId>  
-            <version>5.0</version>
+            <version>5.3</version>
         </dependency> 
-        
+        <dependency>
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>primefaces-extensions</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
         <dependency>  
             <groupId>org.primefaces.themes</groupId>  
             <artifactId>bootstrap</artifactId>  

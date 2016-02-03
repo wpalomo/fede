@@ -118,6 +118,7 @@
                                             <th>#{i18n['ride.infoFactura.razonSocialComprador']}</th>
                                             <th>#{i18n['ride.infoFactura.importeTotal']}</th>
                                             <th>#{i18n['ride.infoFactura.fechaEmision']}</th>
+                                            <th>#{i18n['ride.infoFactura.fechaEmision']}</th>
                                         </tr>
                                     </thead>
 <!--                                    <tbody>
@@ -204,14 +205,23 @@
                             { data: "code"},
                             { data: "organization.initials"},
                             { data: "importeTotal"},
+                            { data: "fechaEmision"},
                             { data: "fechaEmision",
                                 "render": function (data) {
                                     var date = new Date(data);
                                     var month = date.getMonth() + 1;
-                                    return date.getDate() + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+                                    return date.getDate() + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
                                 }
                             }
-                        ]
+                        ],
+                        "columnDefs": [
+                            {
+                                "targets": [ 3 ],
+                                "visible": false,
+                                "searchable": false
+                            }
+                        ],
+                        "order": [[ 3, "desc" ]]
                     });
                     
                     $("#searchbox").keyup(function() {

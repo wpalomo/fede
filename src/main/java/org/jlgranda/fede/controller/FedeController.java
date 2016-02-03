@@ -17,11 +17,13 @@
  */
 package org.jlgranda.fede.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.servlet.http.HttpServletRequest;
@@ -206,9 +208,39 @@ public abstract class FedeController {
         logger.info("Popup '{}' abierto, con opciones {}. Context: {}", name, options, RequestContext.getCurrentInstance());
     }
     
+    /**
+     * Abre la ventana emergente indicada por popupName con el ancho y alto especificado
+     * @param name nombre de la ventana emergente
+     * @param width ancho de la ventana emergente
+     * @param height alto de la ventana emergente
+     * @param modal indica si la ventana emergente debe ser modal o no
+     */
+    protected void openDialog(String name, String width, String height, boolean modal) {
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("modal", modal);
+        options.put("draggable", false);
+        options.put("resizable", true);
+        options.put("contentWidth", width);
+        options.put("contentHeight", height);
+        options.put("closable", true);
+        //options.put("includeViewParams", false);
+
+//        Map<String, List<String>> params = new HashMap<String, List<String>>();
+//        List<String> values = new ArrayList<String>();
+//        values.add(bookName);
+//        params.put("bookName", values);
+        RequestContext.getCurrentInstance().openDialog(name, options, null);
+        logger.info("Popup '{}' abierto, con opciones {}. Context: {}", name, options, RequestContext.getCurrentInstance());
+    }
+    
     public void closeDialog(Object data){
         RequestContext.getCurrentInstance().closeDialog(data);
         logger.info("Popup '{}' cerrado, con data {}. Context: {}", "activo", data, RequestContext.getCurrentInstance());
+    }
+    
+    public void redirectTo(String url) throws IOException{
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath() + url);
     }
             
     public abstract void handleReturn(SelectEvent event);

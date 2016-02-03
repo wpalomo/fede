@@ -1,0 +1,27 @@
+{
+  "name": "bootstrap-dropdowns-enhancement-for-hover",
+  "version": "4.1.0",
+  "main": [
+    "./dist/css/dropdowns-enhancement.css",
+    "./dist/js/dropdowns-enhancement.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "docs"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.9.0",
+    "bootstrap": ">= 3.1.0"
+  },
+  "homepage": "https://github.com/NCARB/bootstrap-dropdowns-enhancement-for-hover",
+  "_release": "4.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.1.0",
+    "commit": "2ddead5a31ca327237bba0be751c517885f7f186"
+  },
+  "_source": "git://github.com/NCARB/bootstrap-dropdowns-enhancement-for-hover.git",
+  "_target": "~4.1.0",
+  "_originalSource": "bootstrap-dropdowns-enhancement-for-hover",
+  "_direct": true
+}
