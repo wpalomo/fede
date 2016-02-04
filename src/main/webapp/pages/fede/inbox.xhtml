@@ -32,7 +32,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-module" href="#{facesContext.externalContext.requestContextPath}/">#{i18n['Invoices']}</a>
+                    <a class="navbar-module" href="#{facesContext.externalContext.requestContextPath}/pages/fede/inbox.jsf">#{i18n['Invoices']}</a>
                 </div>
                 <p:panel id="toolbar-panel">
                 <div class="btn-group navbar-btn" role="group" aria-label="...">
@@ -222,8 +222,8 @@
                                     <p:column headerText="#{i18n['ride.no']}" sortBy="#{facturaElectronica.code}">
                                         <h:outputText value="#{facturaElectronica.code}" />
                                     </p:column>
-                                    <p:column headerText="#{i18n['ride.infoFactura.razonSocialComprador']}" sortBy="#{facturaElectronica.organization.initials}">
-                                        <h:outputText value="#{facturaElectronica.organization.initials}" />
+                                    <p:column headerText="#{i18n['ride.infoFactura.razonSocialComprador']}" sortBy="#{facturaElectronica.author.initials}">
+                                        <h:outputText value="#{facturaElectronica.author.initials}" />
                                     </p:column>
                                     <p:column headerText="#{i18n['ride.infoFactura.importeTotal']}" sortBy="#{facturaElectronica.importeTotal}"
                                               styleClass="text-right">
@@ -284,7 +284,6 @@
                     $("ul.dropdown-menu.mega-dropdown-menu").on('click', function(event){
                         //The event won't be propagated to the document NODE and 
                         // therefore events delegated to document won't be fired
-                        alert("//-->")
                         event.stopPropagation();
                     });
                 });

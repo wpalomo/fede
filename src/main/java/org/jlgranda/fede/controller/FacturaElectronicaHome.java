@@ -71,6 +71,7 @@ import org.jpapi.model.SourceType;
 import org.jpapi.util.I18nUtil;
 import org.jpapi.util.Lists;
 import org.jpapi.util.Strings;
+import org.picketlink.idm.credential.Password;
 import org.primefaces.component.api.UIColumn;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.SortMeta;
@@ -264,6 +265,18 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
         }
         return total;
     }
+    
+    public BigDecimal countRowsByTag(String tag) {
+        BigDecimal total = new BigDecimal(0);
+        if ("all".equalsIgnoreCase(tag)){
+            total = new BigDecimal(facturaElectronicaService.count());
+        } else if ("own".equalsIgnoreCase(tag)){
+            total = new BigDecimal(facturaElectronicaService.count("FacturaElectronica.countBussinesEntityByOwner", subject));
+        } else {
+            total = new BigDecimal(facturaElectronicaService.count("FacturaElectronica.countBussinesEntityByTagAndOwner", tag, subject));
+        }
+        return total;
+    }
 
     public boolean mostrarFormularioCargaFacturaElectronica() {
         String width = settingHome.getValue(SettingNames.POPUP_WIDTH, "550");
@@ -275,7 +288,7 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     public boolean mostrarFormularioDescargaFacturaElectronica() {
         String width = settingHome.getValue(SettingNames.POPUP_WIDTH, "550");
         String height = settingHome.getValue(SettingNames.POPUP_HEIGHT, "480");
-        super.openDialog(SettingNames.POPUP_SUBIR_FACTURA_ELECTRONICA, width, height, true);
+        super.openDialog(SettingNames.POPUP_DESCARGAR_FACTURA_ELECTRONICA, width, height, true);
         return true;
     }
     
@@ -413,7 +426,7 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
             throw new FacturaXMLReadException(I18nUtil.getMessages("xml.read.forbidden.detail"));
         }
         
-        actualizarDatosDesdeFactura(subject, factura);
+        //actualizarDatosDesdeFactura(subject, factura);
 
         StringBuilder codigo = new StringBuilder(factura.getInfoTributaria().getEstab());
         codigo.append("-");
@@ -447,6 +460,7 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
                 author = subjectService.createInstance();
                 author.setCode(factura.getInfoTributaria().getRuc());
                 author.setName(factura.getInfoTributaria().getRazonSocial());
+                author.setFirstname(factura.getInfoTributaria().getRazonSocial());
                 author.setInitials((factura.getInfoTributaria().getNombreComercial() != null && !factura.getInfoTributaria().getNombreComercial().isEmpty()) ? factura.getInfoTributaria().getNombreComercial() : factura.getInfoTributaria().getRazonSocial());
                 //Todo guardar la dirección como html o xml para uso posterior
                 author.setDescription(factura.getInfoTributaria().getDirMatriz());
@@ -454,12 +468,16 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
                 author.setCodeType(CodeType.RUC);
                 author.setRuc(factura.getInfoTributaria().getRuc());
                 author.setNumeroContribuyenteEspecial(factura.getInfoFactura().getContribuyenteEspecial());
+                author.setEmail(author.getCode()+"@dummy.com");
+                author.setUsername(author.getEmail());
+                author.setPassword((new org.apache.commons.codec.digest.Crypt().crypt("dummy")));
+                author.setActive(Boolean.FALSE);
 
                 subjectService.save(author);
             
             }
 
-            //instancia.setOrganization(organizacion);
+            instancia.setAuthor(author);
             instancia.setOwner(subject);
 
             instancia = facturaElectronicaService.save(instancia);
