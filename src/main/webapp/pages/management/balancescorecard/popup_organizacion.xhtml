@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2015 jlgranda
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jlgranda="http://jlgranda.com/jsf/facelets"
+      xmlns:o="http://omnifaces.org/ui">
+    <h:head>
+        <title>#{i18n['New_a']} #{i18n['organization']}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Bootstrap -->
+        <h:outputStylesheet name="/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <!-- Our customizations -->
+        <h:outputStylesheet name="/css/fede.css" />
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90%;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form enctype="multipart/form-data" >
+            <p:growl id="messages" showDetail="true" />
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            #{i18n['organization']}<br/>
+                            #{i18n['organization.intro']}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <jlgranda:input id="ruc" name="ruc" type="text" label="#{i18n['RUC']}" 
+                                        value="#{organizationHome.organization.ruc}" required="true" inlinehelp="#{messages['RUC.inlinehelp']}" execute="@this save" render="ruc"/>
+                                    <jlgranda:input id="nm" name="name" type="text" label="#{i18n['name']}" 
+                                        value="#{organizationHome.organization.name}" required="true" inlinehelp="#{messages['name.inlinehelp']}" execute="@this save" render="nm"/>
+                                    <jlgranda:input id="type" name="type" type="select" label="#{i18n['common.type']}" 
+                                        value="#{organizationHome.organization.organizationType}" values="#{ui.organizationTypesAsSelectItem}" 
+                                        converter="omnifaces.GenericEnumConverter"
+                                        required="true" inlinehelp="#{messages['common.type.inlinehelp']}" execute="@this save" render="type"/>
+                                    <jlgranda:input id="intls" name="intls" type="text" label="#{i18n['initials']}" 
+                                        value="#{organizationHome.organization.initials}" required="true" inlinehelp="#{messages['initials.inlinehelp']}" execute="@this save" render="intls"/>
+                                    <jlgranda:input id="dsc" name="description" type="textarea" label="#{i18n['common.description']}" 
+                                        value="#{organizationHome.organization.description}" required="false" inlinehelp="#{messages['common.description.inlinehelp']}" execute="@this save" render="dsc"/>
+                                    
+                                    <p:commandButton value="#{i18n['Save']}" ajax="false" actionListener="#{organizationHome.save()}" disabled="false" />
+                                    <p:commandButton value="#{i18n['Cancel']}" ajax="false" inmediate="true" actionListener="#{organizationHome.closeDialog(null)}" disabled="false" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.panel-body -->
+                    </div>
+                    <!--/.panel--> 
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.row -->
+        </h:form>
+        <h:outputScript name="/startbootstrap-sb-admin-2-1.0.7/bower_components/bootstrap/dist/js/bootstrap.min.js" />
+    </h:body>
+</html>

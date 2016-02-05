@@ -25,4 +25,8 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <converter>
+        <converter-id>omnifaces.GenericEnumConverter</converter-id>
+        <converter-class>org.omnifaces.converter.GenericEnumConverter</converter-class>
+    </converter>
 </faces-config>

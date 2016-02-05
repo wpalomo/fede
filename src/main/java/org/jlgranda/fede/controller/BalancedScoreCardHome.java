@@ -17,11 +17,16 @@
  */
 package org.jlgranda.fede.controller;
 
-import com.jlgranda.fede.SettingNames;
+import com.jlgranda.fede.ejb.BalancedScoreCardService;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import org.jlgranda.fede.cdi.LoggedIn;
+import org.jlgranda.fede.model.management.Organization;
+import org.jpapi.model.profile.Subject;
 import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,22 +37,44 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @ViewScoped
-public class BalanceScoreCardHome extends FedeController implements Serializable {
+public class BalancedScoreCardHome extends FedeController implements Serializable {
 
-    Logger logger = LoggerFactory.getLogger(BalanceScoreCardHome.class);
+    Logger logger = LoggerFactory.getLogger(BalancedScoreCardHome.class);
+    
+    @Inject
+    @LoggedIn
+    private Subject subject;
     
     @Inject
     private SettingHome settingHome;
+    
+    @EJB
+    private BalancedScoreCardService  balancedScoreCardService;
+    
+    private Organization organization;
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
 
     @Override
     public void handleReturn(SelectEvent event) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean mostrarFormularioOrganizacion() {
-        String width = settingHome.getValue(SettingNames.POPUP_WIDTH, "550");
-        String height = settingHome.getValue(SettingNames.POPUP_HEIGHT, "480");
-        super.openDialog(SettingNames.POPUP_FORMULARIO_ORGANIZATION, width, height, true);
-        return true;
+    public BigDecimal countRowsByTag(String tag) {
+        BigDecimal total = new BigDecimal(0);
+        if ("all".equalsIgnoreCase(tag)){
+            total = new BigDecimal(balancedScoreCardService.count());
+        } else if ("own".equalsIgnoreCase(tag)){
+            total = new BigDecimal(balancedScoreCardService.count("BalancedScoreCard.countByOwner", subject));
+        } else {
+            total = new BigDecimal(balancedScoreCardService.count("BalancedScoreCard.countByOwnerAndOrganization", subject, getOrganization()));
+        }
+        return total;
     }
 }

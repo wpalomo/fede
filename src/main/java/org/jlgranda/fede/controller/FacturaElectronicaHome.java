@@ -19,7 +19,7 @@ package org.jlgranda.fede.controller;
 
 import javax.ejb.EJB;
 import com.jlgranda.fede.ejb.FacturaElectronicaService;
-import com.jlgranda.fede.ejb.OrganizacionService;
+import com.jlgranda.fede.ejb.OrganizationService;
 import com.jlgranda.fede.ejb.SettingService;
 import com.jlgranda.fede.ejb.SubjectService;
 import com.jlgranda.fede.ejb.mail.reader.FacturaElectronicaMailReader;
@@ -108,7 +108,7 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     private FacturaElectronicaMailReader facturaElectronicaMailReader;
 
     @EJB
-    private OrganizacionService organizacionService;
+    private OrganizationService organizacionService;
 
     @EJB
     private SubjectService subjectService;

@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 .navbar-brand {
-    min-width: 235px
+    min-width: 250px
 }
 
 .toolbar {
@@ -40,7 +40,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     font-weight: normal;
     text-decoration: none !important;
     padding: 15px;
-    min-width: 235px;
+    min-width: 250px;
     float: left;
     line-height: 20px;
     height: 50px;
@@ -92,7 +92,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     font-weight: normal;
     text-decoration: none !important;
     padding: 15px;
-    min-width: 235px;
+    min-width: 250px;
     float: left;
     line-height: 20px;
     height: 50px;
@@ -121,6 +121,12 @@ label {
     
 }
 
+.btn-danger {
+    color: #FFF !important;
+ 
+}
+
+
 /*** override primefaces style ***/
 .ui-message-info,.ui-message-error,.ui-message-warn,.ui-message-fatal {
 	border: 0!important;
@@ -133,8 +139,34 @@ label {
 	background-color: #fff!important;
 }
 
-
-.btn-danger {
-    color: #FFF !important;
- 
+.ui-selectonemenu {
+    display: block !important;
 }
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+    box-shadow: none !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    padding: 0px 0px !important;
+}
+
+.ui-panel {
+    padding: 0.0em !important;
+}
+.ui-corner-all {
+    border-radius: 0px !important;
+}
+
+.ui-panel .ui-panel-content {
+    padding: 0em !important;
+}
+
+.navbar-default {
+    border-color: #fff !important;
+}
+
+.navbar {
+    border: 0px solid transparent !important;
+}
+

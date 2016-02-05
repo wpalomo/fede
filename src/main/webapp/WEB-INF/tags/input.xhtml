@@ -78,8 +78,10 @@ limitations under the License.
                 </p:inputTextarea>
             </c:when>
             <c:when test="#{type == 'java.lang.String[]' or type == 'select'}">
-                <p:selectOneMenu value="#{value}" effect="fade"  converter="#{converter}" 
-                                 required="#{required}" requiredMessage="#{requiredMessage}" class="#{class}">  
+                <p:selectOneMenu value="#{value}" effect="fade"
+                                 required="#{required}" requiredMessage="#{requiredMessage}" class="#{class}"> 
+                    <f:converter converterId="#{converter}"  />
+                    <f:selectItem itemLabel = "#{messages['common.choice']}" ItemValue = "" /> 
                     <f:selectItems value="#{values}" var="v" itemLabel="#{v.label}" itemValue="#{v}"/>  
                     <p:ajax event="change" listener="#{listener}" update="#{render}" partialSubmit="true"/>
                 </p:selectOneMenu>  
