@@ -26,6 +26,8 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import org.jlgranda.fede.cdi.LoggedIn;
 import org.jlgranda.fede.model.management.Organization;
+import org.jlgranda.fede.ui.model.LazyBalancedScoreCardDataModel;
+import org.jlgranda.fede.ui.model.LazyFacturaElectronicaDataModel;
 import org.jpapi.model.profile.Subject;
 import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
@@ -52,6 +54,8 @@ public class BalancedScoreCardHome extends FedeController implements Serializabl
     private BalancedScoreCardService  balancedScoreCardService;
     
     private Organization organization;
+    
+    private LazyBalancedScoreCardDataModel lazyDataModel; 
 
     public Organization getOrganization() {
         return organization;
@@ -59,6 +63,14 @@ public class BalancedScoreCardHome extends FedeController implements Serializabl
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public LazyBalancedScoreCardDataModel getLazyDataModel() {
+        return lazyDataModel;
+    }
+
+    public void setLazyDataModel(LazyBalancedScoreCardDataModel lazyDataModel) {
+        this.lazyDataModel = lazyDataModel;
     }
 
     @Override

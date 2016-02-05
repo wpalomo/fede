@@ -19,6 +19,7 @@ package org.jlgranda.fede.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
@@ -28,6 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.jpapi.model.BussinesEntity;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
@@ -44,7 +46,27 @@ public abstract class FedeController {
     public static final String KEY_SEPARATOR = ",";
     
     String outcome = "home";
+    
+    protected List<BussinesEntity> selectedBussinesEntities;
+    
+    protected Map<String, String> selectedTriStateGroups = new LinkedHashMap<String, String>();
 
+    public List<BussinesEntity> getSelectedBussinesEntities() {
+        return selectedBussinesEntities;
+    }
+
+    public void setSelectedBussinesEntities(List<BussinesEntity> selectedBussinesEntities) {
+        this.selectedBussinesEntities = selectedBussinesEntities;
+    }
+
+    public Map<String, String> getSelectedTriStateGroups() {
+        return selectedTriStateGroups;
+    }
+
+    public void setSelectedTriStateGroups(Map<String, String> selectedTriStateGroups) {
+        this.selectedTriStateGroups = selectedTriStateGroups;
+    }
+    
     /**
      * Gets the http servlet request.
      *

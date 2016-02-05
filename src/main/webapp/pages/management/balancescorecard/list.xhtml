@@ -82,7 +82,33 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                
+                                <p:dataTable var="balancedScoreCard" 
+                                             value="#{balancedScoreCardHome.lazyDataModel}" 
+                                             paginator="true" rows="#{settingHome.getValue('fede.inbox.list.length', '50')}" 
+                                             sortOrder="#{settingHome.getValue('fede.inbox.dataTable.sortOrder', 'DESCENDING')}"
+                                             reflow="true" selection="#{balancedScoreCardHome.selectedBussinesEntities}" 
+                                             rowKey="#{facturaElectronica.id}" 
+                                             resizableColumns="#{settingHome.getValue('fede.inbox.dataTable.resizableColumns', 'true')}" 
+                                             id="dataTable" widgetVar="dataTable_wv" lazy="true"
+                                             emptyMessage="#{i18n['emptyMessageBySelection']}">
+
+                                    <p:ajax event="rowSelectCheckbox" update=":form:toolbar-panel"/>
+                                    <p:ajax event="rowUnselectCheckbox" update=":form:toolbar-panel"/>
+                                    <p:ajax event="rowSelect" listener="#{balancedScoreCardHome.onRowSelect}"/>
+                                    <p:column selectionMode="multiple" style="width:32px;text-align:center"/>
+                                    <p:column headerText="#{i18n['ride.no']}" sortBy="#{balancedScoreCard.code}">
+                                        <h:outputText value="#{balancedScoreCard.code}" />
+                                    </p:column>
+                                    <p:column headerText="#{i18n['common.name']}" sortBy="#{balancedScoreCard.name}">
+                                        <h:outputText value="#{balancedScoreCard.name}" />
+                                    </p:column>
+                                    <p:column  id="fechaEmision"  headerText="#{i18n['common.lastUpdate']}" sortBy="#{balancedScoreCard.lastUpdate}"
+                                              styleClass="text-right">
+                                        <h:outputText value="#{facturaElectronica.lastUpdate}">
+                                            <f:convertDateTime pattern="#{settingHome.getValue('fede.date.pattern', 'dd/MM/yyyy')}" />
+                                        </h:outputText>
+                                    </p:column>
+                                </p:dataTable>
                             </div>
                         </div>
                         <!--/.panel-body -->
@@ -103,6 +129,35 @@
 
             </style>
             <script>
+                
+                $(document).ready(function () {
+
+                    $("#globalFilter").keyup(function () {
+                        //onkeyup="PF('dataTable_wv').filter()" 
+                        //var dataTable = $('#dataTable_wv').dataTable();
+                        //dataTable.fnFilter(this.value);
+                        var dataTable = PF('dataTable_wv');
+                        dataTable.filter();
+                    });
+
+                    $("#pagination-next").click(function () {
+                        var dataTable = PF('dataTable_wv');
+                        dataTable.getPaginator().nextLink.click();
+                        //$('#pagination-info').html(dataTable.page.info().start  + '-' + dataTable.page.info().end + ' de ' + dataTable.page.info().recordsTotal);
+                    });
+
+                    $("#pagination-previous").click(function () {
+                        var dataTable = PF('dataTable_wv');
+                        dataTable.getPaginator().prevLink.click();
+                        //$('#pagination-info').html(dataTable.page.info().start  + '-' + dataTable.page.info().end + ' de ' + dataTable.page.info().recordsTotal);
+                    });
+                    
+                    $("ul.dropdown-menu.mega-dropdown-menu").on('click', function(event){
+                        //The event won't be propagated to the document NODE and 
+                        // therefore events delegated to document won't be fired
+                        event.stopPropagation();
+                    });
+                });
             </script>
         </ui:define>
     </ui:composition>

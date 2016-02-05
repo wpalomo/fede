@@ -137,10 +137,6 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
     
     private LazyFacturaElectronicaDataModel lazyDataModel; 
     
-    private List<BussinesEntity> selectedBussinesEntities;
-    
-    private Map<String, String> selectedTriStateGroups = new LinkedHashMap<String, String>();
-    
     private String keyword;
     
     private List<Group> groups = new ArrayList<>();
@@ -161,22 +157,6 @@ public class FacturaElectronicaHome extends FedeController implements Serializab
         
         setEnd(Dates.now());
         setStart(Dates.addDays(getEnd(), -1 * amount));
-    }
-
-    public List<BussinesEntity> getSelectedBussinesEntities() {
-        return selectedBussinesEntities;
-    }
-
-    public void setSelectedBussinesEntities(List<BussinesEntity> selectedBussinesEntities) {
-        this.selectedBussinesEntities = selectedBussinesEntities;
-    }
-
-    public Map<String, String> getSelectedTriStateGroups() {
-        return selectedTriStateGroups;
-    }
-
-    public void setSelectedTriStateGroups(Map<String, String> selectedTriStateGroups) {
-        this.selectedTriStateGroups = selectedTriStateGroups;
     }
 
     public List<UploadedFile> getUploadedFiles() {
